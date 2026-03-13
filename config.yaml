@@ -1,56 +1,42 @@
-# ============================================================
+﻿# ============================================================
 # Konfiguracja TGE Data Scraper
 # ============================================================
 
-# --- Ustawienia e-mail ---
 email:
   smtp_server: smtp.gmail.com
   smtp_port: 587
   sender_email: twoj_email@gmail.com
-  # Dla Gmail użyj App Password (hasło aplikacji):
-  # https://myaccount.google.com/apppasswords
   sender_password: twoje_haslo_aplikacji
   recipients:
     - odbiorca1@example.com
     - odbiorca2@example.com
-  subject: "TGE - Raport danych giełdowych"
-  # Czy dołączyć plik Excel jako załącznik?
+  subject: "TGE - Codzienny raport rynkowy"
   attach_excel: true
 
-# --- Harmonogram ---
 schedule:
-  # Częstotliwość: daily | weekly | hourly | manual
   frequency: daily
-  # Godzina wysyłki (dla daily i weekly), format HH:MM
-  time: "08:00"
-  # Dzień tygodnia (tylko dla weekly):
-  # monday | tuesday | wednesday | thursday | friday | saturday | sunday
+  time: "14:00"
   day: monday
 
-# --- Scraping ---
 scraping:
+  sources:
+    energy_base: https://tge.pl/energia-elektryczna-otf
+    power_spot: https://tge.pl/energia-elektryczna-rdn
+    gas_spot: https://tge.pl/gaz-rdn
+    co2_history: https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com
   urls:
-    - https://tge.pl/
-    - https://tge.pl/otf
+    - https://tge.pl/energia-elektryczna-otf
     - https://tge.pl/energia-elektryczna-rdn
-  # Czas oczekiwania na załadowanie strony (sekundy)
+    - https://tge.pl/gaz-rdn
+    - https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com
   page_load_timeout: 30
-  # Czas oczekiwania na elementy JS (sekundy)
   wait_for_js: 5
-  # Liczba prób przy błędzie
   retry_count: 3
-  # Uruchom przeglądarkę bez GUI (true = serwer/cron, false = debug)
   headless: true
-  # User-Agent dla przeglądarki
   user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 
-# --- Dane wyjściowe ---
 data:
-  # Nazwa pliku Excel z historią
   output_file: tge_dane_historyczne.xlsx
-  # Kolumna z datą pobrania (dodawana automatycznie)
   date_column: Data_Pobrania
-  # Format daty
   date_format: "%Y-%m-%d %H:%M:%S"
-  # Folder do zapisu pliku (zostaw puste dla bieżącego katalogu)
   output_dir: ""

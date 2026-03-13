@@ -1,12 +1,12 @@
-"""
-TGE Data Scraper – logika scrapingu i harmonogram.
+﻿"""
+TGE Data Scraper - scraping orchestration and schedule handling.
 
-Uruchomienie przez web UI:
+Run with web UI:
   python app.py
 
-Uruchomienie CLI (bez web UI):
-  python main.py --run-once       # Tylko jedno pobranie
-  python main.py --config inna.yaml
+Run as CLI:
+  python main.py
+  python main.py --config other.yaml
 """
 import argparse
 import logging
@@ -21,7 +21,6 @@ import yaml
 from data_manager import append_to_excel, get_summary
 from scraper import scrape_all
 
-# ── Logging ──────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -34,8 +33,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# ── Config ───────────────────────────────────────────────────────────────────
-
 def load_config(config_path: str = "config.yaml") -> dict:
     path = Path(config_path)
     if not path.exists():
@@ -43,39 +40,32 @@ def load_config(config_path: str = "config.yaml") -> dict:
         sys.exit(1)
     with open(path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
-    logger.info("Załadowano konfigurację z: %s", config_path)
+    logger.info("Zaladowano konfiguracje z: %s", config_path)
     return cfg
 
 
-# ── Główna logika jednego cyklu ───────────────────────────────────────────────
-
 def run_cycle(config: dict) -> dict:
     """
-    Jeden pełny cykl:
-    1. Scraping tabel z TGE
-    2. Zapis/dopisanie do Excel
-
-    Zwraca słownik z wynikiem (używany przez web UI i CLI).
-    E-mail NIE jest wysyłany automatycznie – wywoływany ręcznie z app.py.
+    One end-to-end refresh cycle:
+    1. Download source datasets
+    2. Update workbook history and report tabs
     """
     start = datetime.now()
     logger.info("=" * 60)
     logger.info("Start cyklu: %s", start.strftime("%Y-%m-%d %H:%M:%S"))
     logger.info("=" * 60)
 
-    # 1. Scraping
     scraped = scrape_all(config)
-    if not any(scraped.values()):
-        logger.error("Nie pobrano żadnych danych. Cykl przerwany.")
-        return {"ok": False, "error": "Nie pobrano żadnych danych.", "start": start}
+    if not any(dataset is not None and not getattr(dataset, "empty", True) for dataset in scraped.values()):
+        logger.error("Nie pobrano zadnych danych. Cykl przerwany.")
+        return {"ok": False, "error": "Nie pobrano zadnych danych.", "start": start}
 
-    # 2. Zapis do Excel
     excel_path = append_to_excel(scraped, config)
     summary = get_summary(excel_path)
     logger.info("Podsumowanie pliku:\n%s", summary)
 
     elapsed = (datetime.now() - start).total_seconds()
-    logger.info("Cykl zakończony w %.1f s.", elapsed)
+    logger.info("Cykl zakonczony w %.1f s.", elapsed)
 
     return {
         "ok": True,
@@ -86,10 +76,8 @@ def run_cycle(config: dict) -> dict:
     }
 
 
-# ── Harmonogram ───────────────────────────────────────────────────────────────
-
 def setup_schedule(config: dict) -> None:
-    """Konfiguruje harmonogram na podstawie config.yaml."""
+    """Configure the scheduler from config.yaml."""
     sched_cfg = config.get("schedule", {})
     frequency = sched_cfg.get("frequency", "daily").lower()
     run_time = sched_cfg.get("time", "08:00")
@@ -111,32 +99,30 @@ def setup_schedule(config: dict) -> None:
         }
         scheduler = days_map.get(day, schedule.every().monday)
         scheduler.at(run_time).do(run_cycle, config)
-        logger.info("Harmonogram: co tydzień w %s o %s", day, run_time)
+        logger.info("Harmonogram: co tydzien w %s o %s", day, run_time)
 
     elif frequency == "hourly":
         schedule.every().hour.do(run_cycle, config)
-        logger.info("Harmonogram: co godzinę")
+        logger.info("Harmonogram: co godzine")
 
     elif frequency == "manual":
-        logger.info("Tryb ręczny – harmonogram wyłączony.")
+        logger.info("Tryb reczny - harmonogram wylaczony.")
 
     else:
         logger.warning(
-            "Nieznana częstotliwość '%s'. Używam 'daily' o 08:00.", frequency
+            "Nieznana czestotliwosc '%s'. Uzywam 'daily' o 08:00.", frequency
         )
         schedule.every().day.at("08:00").do(run_cycle, config)
 
 
-# ── CLI ───────────────────────────────────────────────────────────────────────
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="TGE Data Scraper CLI – jednorazowe pobranie danych."
+        description="TGE Data Scraper CLI - jednorazowe pobranie danych."
     )
     parser.add_argument(
         "--config",
         default="config.yaml",
-        help="Ścieżka do pliku konfiguracyjnego (domyślnie: config.yaml)",
+        help="Sciezka do pliku konfiguracyjnego (domyslnie: config.yaml)",
     )
     return parser.parse_args()
 
@@ -145,12 +131,12 @@ def main() -> None:
     args = parse_args()
     config = load_config(args.config)
 
-    logger.info("Tryb CLI (--run-once). Uruchamiam jednorazowe pobranie.")
+    logger.info("Tryb CLI. Uruchamiam jednorazowe pobranie.")
     result = run_cycle(config)
     if result["ok"]:
         logger.info("Gotowe. Plik: %s", result["excel_path"])
     else:
-        logger.error("Błąd: %s", result.get("error"))
+        logger.error("Blad: %s", result.get("error"))
         sys.exit(1)
 
 

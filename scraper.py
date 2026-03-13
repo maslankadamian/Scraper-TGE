@@ -1,324 +1,408 @@
-"""
-Moduł scrapingu danych z TGE (Towarowa Giełda Energii).
+﻿"""
+Dedicated market data scraping for the daily Excel report.
 
-Strategia (w kolejności):
-  1. Bezpośrednie zapytanie HTTP (requests) – działa tak samo jak Power Query.
-  2. Selenium – fallback gdy strona wymaga JS lub blokuje requests.
-     Obsługuje okna cookie consent.
+Collected metrics:
+- CO2 historical prices (used for current, weekly and monthly ranges)
+- TGE BASE yearly contracts for 2026, 2027 and 2028
+- TGE electricity spot price for the latest available trading session
+- TGE gas spot price for the latest available trading session
 """
+from __future__ import annotations
+
 import logging
-import time
-from datetime import datetime
+import re
+from datetime import datetime, timedelta
 from io import StringIO
-from typing import Optional
+from typing import Iterable
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
 logger = logging.getLogger(__name__)
 
-# Nagłówki imitujące normalną przeglądarkę (jak Power Query)
-_REQUEST_HEADERS = {
+DEFAULT_SOURCES = {
+    "energy_base": "https://tge.pl/energia-elektryczna-otf",
+    "power_spot": "https://tge.pl/energia-elektryczna-rdn",
+    "gas_spot": "https://tge.pl/gaz-rdn",
+    "co2_history": "https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com",
+}
+
+REQUEST_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/122.0.0.0 Safari/537.36"
     ),
+    "Accept-Language": "pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7",
     "Accept": (
         "text/html,application/xhtml+xml,application/xml;"
         "q=0.9,image/avif,image/webp,*/*;q=0.8"
     ),
-    "Accept-Language": "pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
 }
 
 
-# ── Metoda 1: requests ────────────────────────────────────────────────────────
+def _normalize_label(value: object) -> str:
+    text = str(value or "").strip().lower()
+    text = text.replace("\xa0", " ")
+    text = re.sub(r"\s+", " ", text)
+    return text
 
-def _fetch_with_requests(url: str, timeout: int = 30) -> Optional[str]:
-    """Pobiera HTML przez zwykłe zapytanie HTTP (bez przeglądarki)."""
+
+def _to_float(value: object) -> float | None:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return None
+
+    text = str(value).strip()
+    if not text or text.lower() in {"nan", "none", "-", "--"}:
+        return None
+
+    text = text.replace("\xa0", "").replace(" ", "")
+    text = text.replace("%", "")
+    text = text.replace(",", ".")
+    text = re.sub(r"[^0-9.\-]", "", text)
+
+    if not text or text in {"-", ".", "-."}:
+        return None
+
     try:
-        session = requests.Session()
-        resp = session.get(url, headers=_REQUEST_HEADERS, timeout=timeout, verify=True)
-        resp.raise_for_status()
-        resp.encoding = resp.apparent_encoding or "utf-8"
-        logger.info("requests OK (%d bytes) dla: %s", len(resp.text), url)
-        return resp.text
-    except requests.exceptions.SSLError:
-        # Spróbuj bez weryfikacji SSL (niektóre serwery mają błędne certyfikaty)
-        try:
-            import urllib3
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-            session = requests.Session()
-            resp = session.get(url, headers=_REQUEST_HEADERS, timeout=timeout, verify=False)
-            resp.raise_for_status()
-            resp.encoding = resp.apparent_encoding or "utf-8"
-            logger.warning("requests OK (bez SSL) dla: %s", url)
-            return resp.text
-        except Exception as exc2:
-            logger.warning("requests (bez SSL) nieudane dla %s: %s", url, exc2)
-            return None
-    except Exception as exc:
-        logger.warning("requests nieudane dla %s: %s", url, exc)
+        return float(text)
+    except ValueError:
         return None
 
 
-# ── Metoda 2: Selenium ────────────────────────────────────────────────────────
-
-def _build_driver(config: dict) -> webdriver.Chrome:
-    """Tworzy i konfiguruje instancję ChromeDriver."""
-    scraping_cfg = config.get("scraping", {})
-    options = Options()
-
-    if scraping_cfg.get("headless", True):
-        options.add_argument("--headless=new")
-
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option("useAutomationExtension", False)
-
-    user_agent = scraping_cfg.get(
-        "user_agent",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    )
-    options.add_argument(f"--user-agent={user_agent}")
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument("--lang=pl-PL")
-
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-
-    driver.execute_cdp_cmd(
-        "Page.addScriptToEvaluateOnNewDocument",
-        {
-            "source": (
-                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-            )
-        },
-    )
-    return driver
+def _fetch_html(url: str, timeout: int = 30) -> str:
+    session = requests.Session()
+    response = session.get(url, headers=REQUEST_HEADERS, timeout=timeout)
+    response.raise_for_status()
+    response.encoding = response.apparent_encoding or "utf-8"
+    logger.info("Fetched %s (%d bytes)", url, len(response.text))
+    return response.text
 
 
-def _accept_cookies(driver: webdriver.Chrome) -> None:
-    """Próbuje zaakceptować okno cookie consent (GDPR)."""
-    selectors = [
-        # CookieBot (popularny w Polsce)
-        (By.ID, "CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"),
-        # Inne częste wzorce – szukaj po tekście przycisku
-        (By.XPATH, "//button[contains(translate(., 'AKCEPTUJZGADZMSIĘ', 'akceptujzgadzmsię'), 'akceptuj')]"),
-        (By.XPATH, "//button[contains(translate(., 'AKCEPTUJZGADZMSIĘ', 'akceptujzgadzmsię'), 'zgadzam')]"),
-        (By.XPATH, "//button[contains(translate(., 'AKCEPTUJZGADZMSIĘ', 'akceptujzgadzmsię'), 'accept')]"),
-        (By.XPATH, "//button[contains(translate(., 'AKCEPTUJZGADZMSIĘ', 'akceptujzgadzmsię'), 'zezwól')]"),
-        (By.XPATH, "//button[contains(@class, 'cookie') and contains(@class, 'accept')]"),
-        (By.CSS_SELECTOR, "[id*='cookie'] button, [class*='cookie-accept']"),
-    ]
-
-    for by, selector in selectors:
-        try:
-            btn = WebDriverWait(driver, 3).until(
-                EC.element_to_be_clickable((by, selector))
-            )
-            btn.click()
-            logger.info("Zaakceptowano cookies.")
-            time.sleep(1)
-            return
-        except Exception:
-            pass
-
-
-# ── Parsowanie tabel ──────────────────────────────────────────────────────────
-
-def _extract_tables_from_html(
-    html: str,
-    url: str,
-    fetch_time: datetime,
-    date_column: str,
-    min_rows: int = 1,
-    min_cols: int = 2,
-) -> list[pd.DataFrame]:
-    """
-    Parsuje HTML i zwraca listę DataFrame-ów z tabelami zawierającymi dane.
-    Tabele layoutowe (za mało kolumn/wierszy) są pomijane.
-    """
-    soup = BeautifulSoup(html, "lxml")
-    raw_tables = soup.find_all("table")
-    logger.info("Znaleziono %d elementów <table> na: %s", len(raw_tables), url)
-
-    result = []
-    for idx, table in enumerate(raw_tables):
-        try:
-            dfs = pd.read_html(StringIO(str(table)), flavor="lxml", thousands="\xa0")
-            if not dfs:
-                continue
-            df = dfs[0]
-
-            # Spłaszcz wielopoziomowe nagłówki (np. tabele z grupowaniem kolumn)
-            if isinstance(df.columns, pd.MultiIndex):
-                df.columns = [
-                    " | ".join(str(c) for c in col if str(c) not in ("nan", ""))
-                    .strip()
-                    for col in df.columns
-                ]
-
-            df.columns = [str(c).strip() for c in df.columns]
-
-            # Usuń całkowicie puste wiersze i kolumny
-            df.dropna(how="all", inplace=True)
-            df.dropna(axis=1, how="all", inplace=True)
-
-            rows, cols = df.shape
-            if cols < min_cols or rows < min_rows:
-                logger.debug(
-                    "Pomijam tabelę %d (%d w × %d k) – wygląda na layoutową",
-                    idx + 1, rows, cols,
-                )
-                continue
-
-            # Metadane
-            df[date_column] = fetch_time.strftime("%Y-%m-%d %H:%M:%S")
-            df["Zrodlo_URL"] = url
-            df["Numer_Tabeli"] = idx + 1
-
-            result.append(df)
-            logger.info(
-                "Tabela %d: %d wierszy × %d kolumn | Kolumny: %s",
-                idx + 1, rows, cols, list(df.columns[:8]),
-            )
-
-        except Exception as exc:
-            logger.warning("Nie można sparsować tabeli %d z %s: %s", idx + 1, url, exc)
-
-    return result
-
-
-# ── Scraping jednego URL ──────────────────────────────────────────────────────
-
-def scrape_url(
-    driver: webdriver.Chrome,
-    url: str,
-    config: dict,
-    fetch_time: datetime,
-) -> list[pd.DataFrame]:
-    """
-    Pobiera tabele z podanego URL.
-
-    Krok 1: requests (szybko, bez przeglądarki – tak działa Power Query).
-    Krok 2: Selenium (wolniej, obsługuje JS i cookie consent).
-    """
-    scraping_cfg = config.get("scraping", {})
-    page_load_timeout = scraping_cfg.get("page_load_timeout", 30)
-    wait_for_js = scraping_cfg.get("wait_for_js", 5)
-    retry_count = scraping_cfg.get("retry_count", 3)
-    date_column = config.get("data", {}).get("date_column", "Data_Pobrania")
-
-    # ── Krok 1: requests ──────────────────────────────────────────────────────
-    logger.info("Próba 1/2 (requests): %s", url)
-    html = _fetch_with_requests(url, timeout=page_load_timeout)
-    if html:
-        tables = _extract_tables_from_html(html, url, fetch_time, date_column)
-        if tables:
-            logger.info("requests: znaleziono %d tabel z %s", len(tables), url)
-            return tables
-        logger.info(
-            "requests: HTML pobrano, ale brak tabel z danymi. "
-            "Strona może wymagać JS – przełączam na Selenium."
-        )
+def _flatten_columns(df: pd.DataFrame) -> pd.DataFrame:
+    normalized = df.copy()
+    if isinstance(normalized.columns, pd.MultiIndex):
+        columns = []
+        for col in normalized.columns:
+            parts = [str(part).strip() for part in col if str(part).strip() and "Unnamed" not in str(part)]
+            columns.append(" | ".join(parts) if parts else str(col[-1]).strip())
+        normalized.columns = columns
     else:
-        logger.info("requests: nie udało się pobrać HTML. Przełączam na Selenium.")
-
-    # ── Krok 2: Selenium ──────────────────────────────────────────────────────
-    for attempt in range(1, retry_count + 1):
-        try:
-            logger.info("Próba 2/2 (Selenium %d/%d): %s", attempt, retry_count, url)
-            driver.set_page_load_timeout(page_load_timeout)
-            driver.get(url)
-
-            # Obsługa okna cookies
-            _accept_cookies(driver)
-
-            # Czekaj na załadowanie tabel
-            try:
-                WebDriverWait(driver, wait_for_js + 5).until(
-                    EC.presence_of_element_located((By.TAG_NAME, "table"))
-                )
-                logger.debug("Tabela znaleziona w DOM.")
-            except Exception:
-                logger.debug("Nie wykryto tabeli w %ds – próbuję parsować.", wait_for_js + 5)
-
-            # Czas na wykonanie AJAX / lazy-load
-            time.sleep(3)
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
-            driver.execute_script("window.scrollTo(0, 0);")
-            time.sleep(1)
-
-            html = driver.page_source
-            tables = _extract_tables_from_html(html, url, fetch_time, date_column)
-
-            if tables:
-                logger.info("Selenium: znaleziono %d tabel z %s", len(tables), url)
-                return tables
-
-            logger.warning("Selenium: brak tabel z danymi na %s", url)
-            return []
-
-        except Exception as exc:
-            logger.error("Błąd Selenium %s (próba %d/%d): %s", url, attempt, retry_count, exc)
-            if attempt < retry_count:
-                wait = 2 ** attempt
-                logger.info("Czekam %ds przed kolejną próbą...", wait)
-                time.sleep(wait)
-
-    logger.error("Wszystkie metody pobrania danych z %s nieudane.", url)
-    return []
+        normalized.columns = [str(column).strip() for column in normalized.columns]
+    return normalized
 
 
-# ── Scraping wszystkich URL ───────────────────────────────────────────────────
-
-def scrape_all(config: dict) -> dict[str, list[pd.DataFrame]]:
-    """
-    Główna funkcja scrapingu.
-    Pobiera dane ze wszystkich URL-i z konfiguracji.
-    Zwraca słownik {url: [DataFrame, ...]}
-    """
-    urls = config.get("scraping", {}).get("urls", [])
-    fetch_time = datetime.now()
-    results: dict[str, list[pd.DataFrame]] = {}
-
-    if not urls:
-        logger.error("Brak URL-i w konfiguracji (scraping.urls).")
-        return results
-
-    driver = None
+def _read_tables_from_html(html: str) -> list[pd.DataFrame]:
     try:
-        driver = _build_driver(config)
+        tables = pd.read_html(StringIO(html), flavor="lxml", decimal=",", thousands=" ")
+    except ValueError:
+        return []
+    return [_flatten_columns(table) for table in tables]
 
-        for url in urls:
-            tables = scrape_url(driver, url, config, fetch_time)
-            results[url] = tables
 
-    finally:
-        if driver:
-            driver.quit()
-            logger.debug("ChromeDriver zamknięty.")
+def _resolve_sources(config: dict) -> dict[str, str]:
+    scraping_cfg = config.get("scraping", {})
+    sources = dict(DEFAULT_SOURCES)
 
-    total_tables = sum(len(v) for v in results.values())
+    explicit_sources = scraping_cfg.get("sources", {})
+    if isinstance(explicit_sources, dict):
+        for key, value in explicit_sources.items():
+            if value:
+                sources[key] = value
+
+    for url in scraping_cfg.get("urls", []):
+        normalized = _normalize_label(url)
+        if "energia-elektryczna-otf" in normalized or normalized.endswith("/otf"):
+            sources["energy_base"] = url
+        elif "energia-elektryczna-rdn" in normalized:
+            sources["power_spot"] = url
+        elif "gaz-rdn" in normalized:
+            sources["gas_spot"] = url
+        elif "co2" in normalized:
+            sources["co2_history"] = url
+
+    return sources
+
+
+def _find_column(columns: Iterable[object], patterns: Iterable[str]) -> str | None:
+    normalized = {str(column): _normalize_label(column) for column in columns}
+    for pattern in patterns:
+        pattern_norm = _normalize_label(pattern)
+        for column, column_norm in normalized.items():
+            if pattern_norm in column_norm:
+                return column
+    return None
+
+
+def _extract_embedded_date(value: object) -> str | None:
+    match = re.search(r"(20\d{2}-\d{2}-\d{2})", str(value or ""))
+    return match.group(1) if match else None
+
+
+def _format_query_date(date_value: datetime) -> str:
+    return date_value.strftime("%d-%m-%Y")
+
+
+def _date_url(base_url: str, date_value: datetime) -> str:
+    separator = "&" if "?" in base_url else "?"
+    return f"{base_url}{separator}dateShow={_format_query_date(date_value)}"
+
+
+def _candidate_session_dates(fetch_time: datetime, days_back: int = 7) -> list[datetime]:
+    base = datetime(fetch_time.year, fetch_time.month, fetch_time.day)
+    return [base - timedelta(days=offset) for offset in range(days_back + 1)]
+
+
+def _pick_numeric_value(row: pd.Series, patterns: list[str]) -> tuple[float | None, str]:
+    for pattern in patterns:
+        for column in row.index:
+            if pattern in _normalize_label(column):
+                value = _to_float(row.get(column))
+                if value is not None:
+                    return value, str(column)
+    return None, ""
+
+
+def _select_row_by_exact_keyword(table: pd.DataFrame, keyword: str, column: str | None = None) -> pd.Series | None:
+    keyword_norm = _normalize_label(keyword)
+    if column and column in table.columns:
+        for _, row in table.iterrows():
+            if _normalize_label(row.get(column)) == keyword_norm:
+                return row
+    for _, row in table.iterrows():
+        cells = [_normalize_label(value) for value in row.tolist()]
+        if any(cell == keyword_norm for cell in cells):
+            return row
+    return None
+
+
+def _build_energy_base_frame(source_url: str, fetch_time: datetime, days_back: int = 7) -> pd.DataFrame:
+    found: dict[int, dict[str, object]] = {}
+
+    for session_date in _candidate_session_dates(fetch_time, days_back=days_back):
+        dated_url = _date_url(source_url, session_date)
+        tables = _read_tables_from_html(_fetch_html(dated_url))
+        if not tables:
+            continue
+
+        table = tables[0]
+        contract_col = _find_column(table.columns, ["kontrakt", "contract", "produkt"])
+        if not contract_col:
+            continue
+
+        for year in (2026, 2027, 2028):
+            if year in found:
+                continue
+            token = f"base_y-{str(year)[-2:]}"
+            row = None
+            for _, candidate in table.iterrows():
+                if token in _normalize_label(candidate.get(contract_col)):
+                    row = candidate
+                    break
+            if row is None:
+                continue
+
+            price, price_column = _pick_numeric_value(
+                row,
+                ["dkr", "kurs pierwszej transakcji", "kurs min", "kurs maks", "wartość"],
+            )
+            if price is None:
+                continue
+
+            found[year] = {
+                "contract": row.get(contract_col),
+                "price": price,
+                "price_column": price_column,
+                "market_date": session_date.strftime("%Y-%m-%d"),
+                "source_url": dated_url,
+            }
+
+        if 2027 in found and 2028 in found:
+            break
+
+    record: dict[str, object] = {
+        "Data_Raportu": fetch_time.strftime("%Y-%m-%d"),
+        "Data_Pobrania": fetch_time.strftime("%Y-%m-%d %H:%M:%S"),
+        "Zrodlo_URL": source_url,
+    }
+
+    for year in (2026, 2027, 2028):
+        current = found.get(year)
+        record[f"Kontrakt_{year}"] = current.get("contract") if current else ""
+        record[f"Cena_BASE_{year}_PLN_MWh"] = current.get("price") if current else None
+        record[f"Data_Notowania_{year}"] = current.get("market_date") if current else None
+        record[f"Kolumna_Ceny_{year}"] = current.get("price_column") if current else ""
+        record[f"Status_{year}"] = (
+            "OK" if current else "Brak aktywnego notowania w ostatnich dostepnych sesjach"
+        )
+        record[f"URL_Notowania_{year}"] = current.get("source_url") if current else ""
+
+    return pd.DataFrame([record])
+
+
+def _build_index_frame(
+    source_url: str,
+    fetch_time: datetime,
+    index_keyword: str,
+    value_prefix: str,
+    days_back: int = 7,
+) -> pd.DataFrame:
+    for session_date in _candidate_session_dates(fetch_time, days_back=days_back):
+        dated_url = _date_url(source_url, session_date)
+        tables = _read_tables_from_html(_fetch_html(dated_url))
+        if not tables:
+            continue
+
+        target_table = None
+        for table in tables:
+            index_col = _find_column(table.columns, ["indeks"])
+            price_col = _find_column(table.columns, ["kurs"]) 
+            if index_col and price_col:
+                target_table = table
+                break
+        if target_table is None:
+            continue
+
+        index_col = _find_column(target_table.columns, ["indeks"])
+        row = _select_row_by_exact_keyword(target_table, index_keyword, column=index_col)
+        if row is None:
+            continue
+
+        price, source_column = _pick_numeric_value(row, ["kurs", "ostatnio", "price"])
+        if price is None:
+            continue
+
+        market_date = _extract_embedded_date(row.get(index_col + '.1')) if f"{index_col}.1" in target_table.columns else None
+        if market_date is None:
+            secondary_col = _find_column(target_table.columns, ["indeks.1", "script"])
+            market_date = _extract_embedded_date(row.get(secondary_col)) if secondary_col else None
+        if market_date is None:
+            market_date = session_date.strftime("%Y-%m-%d")
+
+        record: dict[str, object] = {
+            "Data_Raportu": fetch_time.strftime("%Y-%m-%d"),
+            "Data_Pobrania": fetch_time.strftime("%Y-%m-%d %H:%M:%S"),
+            "Data_Notowania": market_date,
+            "Indeks": index_keyword,
+            "Cena_Biezaca_PLN_MWh": price,
+            "Kolumna_Zrodla_Ceny": source_column,
+            "Zrodlo_URL": dated_url,
+        }
+
+        for column in row.index:
+            normalized_column = re.sub(r"[^A-Za-z0-9]+", "_", str(column)).strip("_")
+            if normalized_column:
+                record[f"{value_prefix}_{normalized_column}"] = row.get(column)
+
+        return pd.DataFrame([record])
+
+    raise ValueError(f"Could not find a published index row for {index_keyword}")
+
+
+def _build_co2_history_frame(source_url: str, fetch_time: datetime) -> pd.DataFrame:
+    html = _fetch_html(source_url)
+    soup = BeautifulSoup(html, "html.parser")
+
+    selected_rows: list[dict[str, object]] = []
+    selected_table = None
+    for table in soup.find_all("table"):
+        header_text = " ".join(_normalize_label(th.get_text(" ", strip=True)) for th in table.find_all("th"))
+        if "data" in header_text and ("ostatnio" in header_text or "price" in header_text):
+            selected_table = table
+            break
+
+    if selected_table is None:
+        raise ValueError("CO2 historical table not found in HTML")
+
+    for row in selected_table.find_all("tr"):
+        cells = [cell.get_text(" ", strip=True) for cell in row.find_all(["td", "th"])]
+        if len(cells) < 2:
+            continue
+        if _normalize_label(cells[0]) in {"data", "date"}:
+            continue
+        price = _to_float(cells[1])
+        if price is None:
+            continue
+        parsed_date = pd.to_datetime(cells[0], dayfirst=True, errors="coerce")
+        if pd.isna(parsed_date):
+            continue
+        change_value = _to_float(cells[6]) if len(cells) > 6 else None
+        selected_rows.append(
+            {
+                "Data": parsed_date.strftime("%Y-%m-%d"),
+                "Cena_CO2": price,
+                "Zmiana_Proc": change_value,
+                "Data_Pobrania": fetch_time.strftime("%Y-%m-%d %H:%M:%S"),
+                "Zrodlo_URL": source_url,
+            }
+        )
+
+    if not selected_rows:
+        raise ValueError("CO2 history rows were not parsed")
+
+    history = pd.DataFrame(selected_rows)
+    history["Data"] = pd.to_datetime(history["Data"])
+    min_date = (fetch_time - timedelta(days=40)).date()
+    history = history[history["Data"].dt.date >= min_date].copy()
+    history = history.sort_values("Data").drop_duplicates(subset=["Data"], keep="last")
+    history["Data"] = history["Data"].dt.strftime("%Y-%m-%d")
+    return history.reset_index(drop=True)
+
+
+def _safe_dataset(loader, dataset_name: str) -> pd.DataFrame:
+    try:
+        return loader()
+    except Exception as exc:
+        logger.exception("Dataset '%s' failed: %s", dataset_name, exc)
+        return pd.DataFrame()
+
+
+def scrape_all(config: dict) -> dict[str, pd.DataFrame]:
+    """
+    Fetches all datasets needed by the report.
+
+    Returned keys:
+    - co2_history
+    - energy_base_history
+    - power_spot_history
+    - gas_spot_history
+    """
+    fetch_time = datetime.now()
+    sources = _resolve_sources(config)
+
+    results: dict[str, pd.DataFrame] = {}
+    results["energy_base_history"] = _safe_dataset(
+        lambda: _build_energy_base_frame(sources["energy_base"], fetch_time),
+        "energy_base_history",
+    )
+    results["power_spot_history"] = _safe_dataset(
+        lambda: _build_index_frame(
+            source_url=sources["power_spot"],
+            fetch_time=fetch_time,
+            index_keyword="TGeBase",
+            value_prefix="Energia",
+        ),
+        "power_spot_history",
+    )
+    results["gas_spot_history"] = _safe_dataset(
+        lambda: _build_index_frame(
+            source_url=sources["gas_spot"],
+            fetch_time=fetch_time,
+            index_keyword="TGEgasDA",
+            value_prefix="Gaz",
+        ),
+        "gas_spot_history",
+    )
+    results["co2_history"] = _safe_dataset(
+        lambda: _build_co2_history_frame(sources["co2_history"], fetch_time),
+        "co2_history",
+    )
+
     logger.info(
-        "Scraping zakończony. Pobrano łącznie %d tabeli(e) z %d stron.",
-        total_tables,
-        len(urls),
+        "Scraping completed for %d datasets with %d non-empty results.",
+        len(results),
+        sum(1 for df in results.values() if df is not None and not df.empty),
     )
     return results
+

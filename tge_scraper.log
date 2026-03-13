@@ -251,3 +251,409 @@ Liczba arkuszy: 8
  * Running on http://127.0.0.1:5000
 2026-03-05 13:46:07 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
 2026-03-05 13:46:22 [INFO] werkzeug: 127.0.0.1 - - [05/Mar/2026 13:46:22] "GET / HTTP/1.1" 200 -
+2026-03-13 09:48:54 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-13 09:48:54 [INFO] main: Harmonogram: codziennie o 08:00
+2026-03-13 09:48:54 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-13 09:48:54 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-13 09:48:54 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-13 09:48:54 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-13 09:49:05 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:05] "GET / HTTP/1.1" 200 -
+2026-03-13 09:49:05 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-13 09:49:13 [INFO] main: ============================================================
+2026-03-13 09:49:13 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:13] "POST /api/scrape HTTP/1.1" 200 -
+2026-03-13 09:49:13 [INFO] main: Start cyklu: 2026-03-13 09:49:13
+2026-03-13 09:49:13 [INFO] main: ============================================================
+2026-03-13 09:49:15 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf (350394 bytes)
+2026-03-13 09:49:15 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:15] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:49:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn (289029 bytes)
+2026-03-13 09:49:16 [ERROR] scraper: Dataset 'power_spot_history' failed: Could not find row with keyword 'TGeBASE'
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 338, in <lambda>
+    lambda: _build_spot_frame(
+            ~~~~~~~~~~~~~~~~~^
+        _match_table(
+        ^^^^^^^^^^^^^
+    ...<6 lines>...
+        value_prefix="Energia",
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 246, in _build_spot_frame
+    row = _select_row_by_keyword(table, index_keyword)
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 169, in _select_row_by_keyword
+    raise ValueError(f"Could not find row with keyword '{keyword}'")
+ValueError: Could not find row with keyword 'TGeBASE'
+2026-03-13 09:49:17 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:17] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:49:18 [INFO] scraper: Fetched https://tge.pl/gaz-ziemny-rdn (13197 bytes)
+2026-03-13 09:49:18 [ERROR] scraper: Dataset 'gas_spot_history' failed: `Import html5lib` failed.  Use pip or conda to install the html5lib package.
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\compat\_optional.py", line 158, in import_optional_dependency
+    module = importlib.import_module(name)
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'html5lib'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 354, in <lambda>
+    _read_tables_from_html(_fetch_html(sources["gas_spot"], timeout=timeout)),
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 84, in _read_tables_from_html
+    return pd.read_html(StringIO(html), decimal=",", thousands=" ")
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 1226, in read_html
+    return _parse(
+        flavor=flavor,
+    ...<16 lines>...
+        storage_options=storage_options,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 967, in _parse
+    parser = _parser_dispatch(flav)
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 911, in _parser_dispatch
+    import_optional_dependency("html5lib")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\compat\_optional.py", line 161, in import_optional_dependency
+    raise ImportError(msg) from err
+ImportError: `Import html5lib` failed.  Use pip or conda to install the html5lib package.
+2026-03-13 09:49:19 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (889067 bytes)
+2026-03-13 09:49:19 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:19] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:49:19 [ERROR] scraper: Dataset 'co2_history' failed: CO2 historical table does not expose date and price columns
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 366, in <lambda>
+    lambda: _build_co2_history_frame(
+            ~~~~~~~~~~~~~~~~~~~~~~~~^
+        _fetch_html(sources["co2_history"], timeout=timeout),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        sources["co2_history"],
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        fetch_time,
+        ^^^^^^^^^^^
+    ),
+    ^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 276, in _build_co2_history_frame
+    raise ValueError("CO2 historical table does not expose date and price columns")
+ValueError: CO2 historical table does not expose date and price columns
+2026-03-13 09:49:19 [INFO] scraper: Scraping completed for 4 datasets with 1 non-empty results.
+2026-03-13 09:49:19 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 09:49:19 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+Energia BASE: 2026: brak, 2027: brak, 2028: brak
+Spot energia: brak danych PLN/MWh (nan)
+CO2 7D: 0 rekordow | CO2 30D: 0 rekordow
+Gaz 7D: 0 rekordow | Gaz 30D: 0 rekordow
+2026-03-13 09:49:19 [INFO] main: Cykl zakonczony w 6.5 s.
+2026-03-13 09:49:21 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:21] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:49:29 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:49:29] "GET /api/download HTTP/1.1" 200 -
+2026-03-13 09:50:42 [INFO] main: ============================================================
+2026-03-13 09:50:42 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:50:42] "POST /api/scrape HTTP/1.1" 200 -
+2026-03-13 09:50:42 [INFO] main: Start cyklu: 2026-03-13 09:50:42
+2026-03-13 09:50:42 [INFO] main: ============================================================
+2026-03-13 09:50:44 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf (350394 bytes)
+2026-03-13 09:50:44 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:50:44] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:50:46 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn (289029 bytes)
+2026-03-13 09:50:46 [ERROR] scraper: Dataset 'power_spot_history' failed: Could not find row with keyword 'TGeBASE'
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 338, in <lambda>
+    lambda: _build_spot_frame(
+            ~~~~~~~~~~~~~~~~~^
+        _match_table(
+        ^^^^^^^^^^^^^
+    ...<6 lines>...
+        value_prefix="Energia",
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 246, in _build_spot_frame
+    row = _select_row_by_keyword(table, index_keyword)
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 169, in _select_row_by_keyword
+    raise ValueError(f"Could not find row with keyword '{keyword}'")
+ValueError: Could not find row with keyword 'TGeBASE'
+2026-03-13 09:50:47 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:50:47] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:50:47 [INFO] scraper: Fetched https://tge.pl/gaz-ziemny-rdn (13197 bytes)
+2026-03-13 09:50:47 [ERROR] scraper: Dataset 'gas_spot_history' failed: `Import html5lib` failed.  Use pip or conda to install the html5lib package.
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\compat\_optional.py", line 158, in import_optional_dependency
+    module = importlib.import_module(name)
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'html5lib'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 354, in <lambda>
+    _read_tables_from_html(_fetch_html(sources["gas_spot"], timeout=timeout)),
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 84, in _read_tables_from_html
+    return pd.read_html(StringIO(html), decimal=",", thousands=" ")
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 1226, in read_html
+    return _parse(
+        flavor=flavor,
+    ...<16 lines>...
+        storage_options=storage_options,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 967, in _parse
+    parser = _parser_dispatch(flav)
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 911, in _parser_dispatch
+    import_optional_dependency("html5lib")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\compat\_optional.py", line 161, in import_optional_dependency
+    raise ImportError(msg) from err
+ImportError: `Import html5lib` failed.  Use pip or conda to install the html5lib package.
+2026-03-13 09:50:48 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:50:48] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:50:49 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (888991 bytes)
+2026-03-13 09:50:49 [ERROR] scraper: Dataset 'co2_history' failed: CO2 historical table does not expose date and price columns
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 366, in <lambda>
+    lambda: _build_co2_history_frame(
+            ~~~~~~~~~~~~~~~~~~~~~~~~^
+        _fetch_html(sources["co2_history"], timeout=timeout),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        sources["co2_history"],
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        fetch_time,
+        ^^^^^^^^^^^
+    ),
+    ^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 276, in _build_co2_history_frame
+    raise ValueError("CO2 historical table does not expose date and price columns")
+ValueError: CO2 historical table does not expose date and price columns
+2026-03-13 09:50:49 [INFO] scraper: Scraping completed for 4 datasets with 1 non-empty results.
+2026-03-13 09:50:50 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 09:50:50 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+Energia BASE: 2026: brak, 2027: brak, 2028: brak
+Spot energia: brak danych PLN/MWh (nan)
+CO2 7D: 0 rekordow | CO2 30D: 0 rekordow
+Gaz 7D: 0 rekordow | Gaz 30D: 0 rekordow
+2026-03-13 09:50:50 [INFO] main: Cykl zakonczony w 7.2 s.
+2026-03-13 09:50:51 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:50:51] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 09:50:55 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 09:50:55] "GET /api/download HTTP/1.1" 200 -
+2026-03-13 10:03:01 [INFO] __main__: Zaladowano konfiguracje z: config.yaml
+2026-03-13 10:03:01 [INFO] __main__: Tryb CLI. Uruchamiam jednorazowe pobranie.
+2026-03-13 10:03:01 [INFO] __main__: ============================================================
+2026-03-13 10:03:01 [INFO] __main__: Start cyklu: 2026-03-13 10:03:01
+2026-03-13 10:03:01 [INFO] __main__: ============================================================
+2026-03-13 10:03:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf (350394 bytes)
+2026-03-13 10:03:05 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn (289029 bytes)
+2026-03-13 10:03:05 [ERROR] scraper: Dataset 'power_spot_history' failed: Could not find row with keyword 'TGeBASE'
+Traceback (most recent call last):
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 338, in <lambda>
+    lambda: _build_spot_frame(
+            ~~~~~~~~~~~~~~~~~^
+        _match_table(
+        ^^^^^^^^^^^^^
+    ...<6 lines>...
+        value_prefix="Energia",
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 246, in _build_spot_frame
+    row = _select_row_by_keyword(table, index_keyword)
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 169, in _select_row_by_keyword
+    raise ValueError(f"Could not find row with keyword '{keyword}'")
+ValueError: Could not find row with keyword 'TGeBASE'
+2026-03-13 10:03:06 [INFO] scraper: Fetched https://tge.pl/gaz-ziemny-rdn (13197 bytes)
+2026-03-13 10:03:06 [ERROR] scraper: Dataset 'gas_spot_history' failed: `Import html5lib` failed.  Use pip or conda to install the html5lib package.
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\compat\_optional.py", line 158, in import_optional_dependency
+    module = importlib.import_module(name)
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'html5lib'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 354, in <lambda>
+    _read_tables_from_html(_fetch_html(sources["gas_spot"], timeout=timeout)),
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 84, in _read_tables_from_html
+    return pd.read_html(StringIO(html), decimal=",", thousands=" ")
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 1226, in read_html
+    return _parse(
+        flavor=flavor,
+    ...<16 lines>...
+        storage_options=storage_options,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 967, in _parse
+    parser = _parser_dispatch(flav)
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\io\html.py", line 911, in _parser_dispatch
+    import_optional_dependency("html5lib")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\pandas\compat\_optional.py", line 161, in import_optional_dependency
+    raise ImportError(msg) from err
+ImportError: `Import html5lib` failed.  Use pip or conda to install the html5lib package.
+2026-03-13 10:03:08 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (881755 bytes)
+2026-03-13 10:03:08 [ERROR] scraper: Dataset 'co2_history' failed: CO2 historical table does not expose date and price columns
+Traceback (most recent call last):
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 302, in _safe_dataset
+    return loader()
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 366, in <lambda>
+    lambda: _build_co2_history_frame(
+            ~~~~~~~~~~~~~~~~~~~~~~~~^
+        _fetch_html(sources["co2_history"], timeout=timeout),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        sources["co2_history"],
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        fetch_time,
+        ^^^^^^^^^^^
+    ),
+    ^
+  File "C:\Testy Claude\Scraper TGE\scraper.py", line 276, in _build_co2_history_frame
+    raise ValueError("CO2 historical table does not expose date and price columns")
+ValueError: CO2 historical table does not expose date and price columns
+2026-03-13 10:03:08 [INFO] scraper: Scraping completed for 4 datasets with 1 non-empty results.
+2026-03-13 10:03:08 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 10:03:08 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+Energia BASE: 2026: brak, 2027: brak, 2028: brak
+Spot energia: brak danych PLN/MWh (nan)
+CO2 7D: 0 rekordow | CO2 30D: 0 rekordow
+Gaz 7D: 0 rekordow | Gaz 30D: 0 rekordow
+2026-03-13 10:03:08 [INFO] __main__: Cykl zakonczony w 6.5 s.
+2026-03-13 10:03:08 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-13 10:32:36 [INFO] __main__: Zaladowano konfiguracje z: config.yaml
+2026-03-13 10:32:36 [INFO] __main__: Tryb CLI. Uruchamiam jednorazowe pobranie.
+2026-03-13 10:32:36 [INFO] __main__: ============================================================
+2026-03-13 10:32:36 [INFO] __main__: Start cyklu: 2026-03-13 10:32:36
+2026-03-13 10:32:36 [INFO] __main__: ============================================================
+2026-03-13 10:32:38 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350414 bytes)
+2026-03-13 10:32:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-13 10:32:42 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=13-03-2026 (291154 bytes)
+2026-03-13 10:32:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=12-03-2026 (408902 bytes)
+2026-03-13 10:32:45 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71232 bytes)
+2026-03-13 10:32:46 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (894315 bytes)
+2026-03-13 10:32:46 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-13 10:32:46 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 10:32:46 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.96 EUR (2026-03-13)
+Energia BASE: 2026: brak, 2027: 43561.00, 2028: 41250.00
+Spot energia: 33923.00 PLN/MWh (2026-03-13)
+Gaz: 21790.00 PLN/MWh (2026-03-13)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+Gaz 7D: 1 rekordow | Gaz 30D: 1 rekordow
+2026-03-13 10:32:46 [INFO] __main__: Cykl zakonczony w 10.7 s.
+2026-03-13 10:32:46 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-13 10:34:59 [INFO] __main__: Zaladowano konfiguracje z: config.yaml
+2026-03-13 10:34:59 [INFO] __main__: Tryb CLI. Uruchamiam jednorazowe pobranie.
+2026-03-13 10:34:59 [INFO] __main__: ============================================================
+2026-03-13 10:34:59 [INFO] __main__: Start cyklu: 2026-03-13 10:34:59
+2026-03-13 10:34:59 [INFO] __main__: ============================================================
+2026-03-13 10:35:01 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350414 bytes)
+2026-03-13 10:35:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-13 10:35:05 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=13-03-2026 (292417 bytes)
+2026-03-13 10:35:07 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=12-03-2026 (408902 bytes)
+2026-03-13 10:35:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71232 bytes)
+2026-03-13 10:35:11 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (887553 bytes)
+2026-03-13 10:35:11 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-13 10:35:12 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 10:35:12 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.96 EUR (2026-03-13)
+Energia BASE: 2026: brak, 2027: 435.61, 2028: 412.50
+Spot energia: 339.23 PLN/MWh (2026-03-13)
+Gaz: 217.90 PLN/MWh (2026-03-13)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+Gaz 7D: 1 rekordow | Gaz 30D: 1 rekordow
+2026-03-13 10:35:12 [INFO] __main__: Cykl zakonczony w 12.7 s.
+2026-03-13 10:35:12 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-13 10:42:50 [INFO] __main__: Zaladowano konfiguracje z: config.yaml
+2026-03-13 10:42:50 [INFO] __main__: Tryb CLI. Uruchamiam jednorazowe pobranie.
+2026-03-13 10:42:50 [INFO] __main__: ============================================================
+2026-03-13 10:42:50 [INFO] __main__: Start cyklu: 2026-03-13 10:42:50
+2026-03-13 10:42:50 [INFO] __main__: ============================================================
+2026-03-13 10:42:52 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350414 bytes)
+2026-03-13 10:42:54 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-13 10:42:56 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=13-03-2026 (298028 bytes)
+2026-03-13 10:42:58 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=12-03-2026 (408902 bytes)
+2026-03-13 10:43:00 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71232 bytes)
+2026-03-13 10:43:02 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (893991 bytes)
+2026-03-13 10:43:03 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-13 10:43:03 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 10:43:03 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.96 EUR (2026-03-13)
+Energia BASE: 2026: brak, 2027: 435.61, 2028: 412.50
+Spot energia: 339.23 PLN/MWh (2026-03-13)
+Gaz: 217.90 PLN/MWh (2026-03-13)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+Gaz 7D: 1 rekordow | Gaz 30D: 1 rekordow
+2026-03-13 10:43:03 [INFO] __main__: Cykl zakonczony w 12.6 s.
+2026-03-13 10:43:03 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-13 10:50:22 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-13 10:50:22 [INFO] main: Harmonogram: codziennie o 14:00
+2026-03-13 10:50:22 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-13 10:50:22 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-13 10:50:22 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-13 10:50:22 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-13 10:50:22 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:22] "GET / HTTP/1.1" 200 -
+2026-03-13 10:50:28 [INFO] main: ============================================================
+2026-03-13 10:50:28 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:28] "POST /api/scrape HTTP/1.1" 200 -
+2026-03-13 10:50:28 [INFO] main: Start cyklu: 2026-03-13 10:50:28
+2026-03-13 10:50:28 [INFO] main: ============================================================
+2026-03-13 10:50:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350414 bytes)
+2026-03-13 10:50:30 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:30] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 10:50:32 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-13 10:50:32 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:32] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 10:50:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=13-03-2026 (301992 bytes)
+2026-03-13 10:50:34 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:34] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 10:50:35 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-rdn?dateShow=12-03-2026 (408902 bytes)
+2026-03-13 10:50:36 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:36] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 10:50:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71232 bytes)
+2026-03-13 10:50:38 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (887179 bytes)
+2026-03-13 10:50:38 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-13 10:50:38 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:38] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 10:50:38 [INFO] data_manager: Saved workbook with 9 sheets to tge_dane_historyczne.xlsx
+2026-03-13 10:50:38 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.96 EUR (2026-03-13)
+Energia BASE: 2026: brak, 2027: 435.61, 2028: 412.50
+Spot energia: 339.23 PLN/MWh (2026-03-13)
+Gaz: 217.90 PLN/MWh (2026-03-13)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+Gaz 7D: 1 rekordow | Gaz 30D: 1 rekordow
+2026-03-13 10:50:38 [INFO] main: Cykl zakonczony w 10.2 s.
+2026-03-13 10:50:40 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:40] "GET /api/status HTTP/1.1" 200 -
+2026-03-13 10:50:42 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 10:50:42] "GET /api/download HTTP/1.1" 200 -
