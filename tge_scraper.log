@@ -1,0 +1,253 @@
+2026-03-04 11:08:57 [INFO] __main__: Załadowano konfigurację z: config.yaml
+2026-03-04 11:08:57 [INFO] __main__: Tryb CLI (--run-once). Uruchamiam jednorazowe pobranie.
+2026-03-04 11:08:57 [INFO] __main__: ============================================================
+2026-03-04 11:08:57 [INFO] __main__: Start cyklu: 2026-03-04 11:08:57
+2026-03-04 11:08:57 [INFO] __main__: ============================================================
+2026-03-04 11:08:57 [INFO] WDM: ====== WebDriver manager ======
+2026-03-04 11:08:59 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-04 11:09:00 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-04 11:09:01 [INFO] WDM: Driver [C:\Users\Damian Maślanka\.wdm\drivers\chromedriver\win64\145.0.7632.117\chromedriver-win32/chromedriver.exe] found in cache
+2026-03-04 11:09:02 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/
+2026-03-04 11:09:06 [INFO] scraper: requests OK (271336 bytes) dla: https://tge.pl/
+2026-03-04 11:09:06 [INFO] scraper: Znaleziono 4 elementów <table> na: https://tge.pl/
+2026-03-04 11:09:06 [INFO] scraper: Tabela 1: 6 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:06 [INFO] scraper: Tabela 2: 3 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:06 [INFO] scraper: Tabela 3: 4 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:06 [INFO] scraper: Tabela 4: 3 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (toe)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:06 [INFO] scraper: requests: znaleziono 4 tabel z https://tge.pl/
+2026-03-04 11:09:06 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/otf
+2026-03-04 11:09:08 [INFO] scraper: requests OK (182291 bytes) dla: https://tge.pl/otf
+2026-03-04 11:09:08 [INFO] scraper: Znaleziono 3 elementów <table> na: https://tge.pl/otf
+2026-03-04 11:09:08 [INFO] scraper: Tabela 1: 6 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:08 [INFO] scraper: Tabela 2: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:08 [INFO] scraper: Tabela 3: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:09:08 [INFO] scraper: requests: znaleziono 3 tabel z https://tge.pl/otf
+2026-03-04 11:09:08 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:09:09 [INFO] scraper: requests OK (301887 bytes) dla: https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:09:10 [INFO] scraper: Znaleziono 1 elementów <table> na: https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:09:10 [INFO] scraper: Tabela 1: 120 wierszy × 17 kolumn | Kolumny: ['Unnamed: 0_level_0 | Data dostawy', 'Unnamed: 1_level_0 | Typ instrumentu', 'Fixing I | Kurs [PLN/MWh]', 'Fixing I | Wolumen [MW]', 'Notowania ciągłe | Kurs (średnioważony) [PLN/MWh]', 'Notowania ciągłe | Wolumen [MW]', 'Fixing II | Kurs jednolity [EUR/MWh]', 'Fixing II | Kurs jednolity [PLN/MWh]']
+2026-03-04 11:09:10 [INFO] scraper: requests: znaleziono 1 tabel z https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:09:12 [INFO] scraper: Scraping zakończony. Pobrano łącznie 8 tabeli(e) z 3 stron.
+2026-03-04 11:09:12 [INFO] data_manager: Tworzę nowy plik: tge_dane_historyczne.xlsx
+2026-03-04 11:09:12 [INFO] data_manager: Zapisano 8 arkuszy do tge_dane_historyczne.xlsx
+2026-03-04 11:09:12 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Liczba arkuszy: 8
+  - tge_pl_T1: 6 rekordów
+  - tge_pl_T2: 3 rekordów
+  - tge_pl_T3: 4 rekordów
+  - tge_pl_T4: 3 rekordów
+  - otf_T1: 6 rekordów
+  - otf_T2: 4 rekordów
+  - otf_T3: 4 rekordów
+  - energia-elektryczna-rdn_T1: 120 rekordów
+2026-03-04 11:09:12 [INFO] __main__: Cykl zakończony w 15.2 s.
+2026-03-04 11:09:12 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-04 11:13:29 [INFO] __main__: Załadowano konfigurację z: config.yaml
+2026-03-04 11:13:29 [INFO] __main__: Tryb CLI (--run-once). Uruchamiam jednorazowe pobranie.
+2026-03-04 11:13:29 [INFO] __main__: ============================================================
+2026-03-04 11:13:29 [INFO] __main__: Start cyklu: 2026-03-04 11:13:29
+2026-03-04 11:13:29 [INFO] __main__: ============================================================
+2026-03-04 11:13:29 [INFO] WDM: ====== WebDriver manager ======
+2026-03-04 11:13:31 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-04 11:13:32 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-04 11:13:45 [INFO] WDM: Driver [C:\Users\Damian Maślanka\.wdm\drivers\chromedriver\win64\145.0.7632.117\chromedriver-win32/chromedriver.exe] found in cache
+2026-03-04 11:13:46 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/
+2026-03-04 11:13:49 [INFO] scraper: requests OK (271336 bytes) dla: https://tge.pl/
+2026-03-04 11:13:49 [INFO] scraper: Znaleziono 4 elementów <table> na: https://tge.pl/
+2026-03-04 11:13:49 [INFO] scraper: Tabela 1: 6 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:49 [INFO] scraper: Tabela 2: 3 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:49 [INFO] scraper: Tabela 3: 4 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:49 [INFO] scraper: Tabela 4: 3 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (toe)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:49 [INFO] scraper: requests: znaleziono 4 tabel z https://tge.pl/
+2026-03-04 11:13:49 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/otf
+2026-03-04 11:13:51 [INFO] scraper: requests OK (182291 bytes) dla: https://tge.pl/otf
+2026-03-04 11:13:51 [INFO] scraper: Znaleziono 3 elementów <table> na: https://tge.pl/otf
+2026-03-04 11:13:51 [INFO] scraper: Tabela 1: 6 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:51 [INFO] scraper: Tabela 2: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:51 [INFO] scraper: Tabela 3: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:13:51 [INFO] scraper: requests: znaleziono 3 tabel z https://tge.pl/otf
+2026-03-04 11:13:51 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:13:53 [INFO] scraper: requests OK (301887 bytes) dla: https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:13:53 [INFO] scraper: Znaleziono 1 elementów <table> na: https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:13:53 [INFO] scraper: Tabela 1: 120 wierszy × 17 kolumn | Kolumny: ['Unnamed: 0_level_0 | Data dostawy', 'Unnamed: 1_level_0 | Typ instrumentu', 'Fixing I | Kurs [PLN/MWh]', 'Fixing I | Wolumen [MW]', 'Notowania ciągłe | Kurs (średnioważony) [PLN/MWh]', 'Notowania ciągłe | Wolumen [MW]', 'Fixing II | Kurs jednolity [EUR/MWh]', 'Fixing II | Kurs jednolity [PLN/MWh]']
+2026-03-04 11:13:53 [INFO] scraper: requests: znaleziono 1 tabel z https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:13:55 [INFO] scraper: Scraping zakończony. Pobrano łącznie 8 tabeli(e) z 3 stron.
+2026-03-04 11:13:55 [INFO] data_manager: Dopisuję do istniejącego pliku: tge_dane_historyczne.xlsx
+2026-03-04 11:13:56 [INFO] data_manager: Zapisano 8 arkuszy do tge_dane_historyczne.xlsx
+2026-03-04 11:13:56 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Liczba arkuszy: 8
+  - tge_pl_T1: 12 rekordów
+  - tge_pl_T2: 6 rekordów
+  - tge_pl_T3: 8 rekordów
+  - tge_pl_T4: 6 rekordów
+  - otf_T1: 12 rekordów
+  - otf_T2: 8 rekordów
+  - otf_T3: 8 rekordów
+  - energia-elektryczna-rdn_T1: 240 rekordów
+2026-03-04 11:13:56 [INFO] __main__: Cykl zakończony w 27.3 s.
+2026-03-04 11:13:56 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-04 11:14:01 [INFO] __main__: Załadowano konfigurację z: config.yaml
+2026-03-04 11:14:01 [INFO] __main__: Tryb CLI (--run-once). Uruchamiam jednorazowe pobranie.
+2026-03-04 11:14:01 [INFO] __main__: ============================================================
+2026-03-04 11:14:01 [INFO] __main__: Start cyklu: 2026-03-04 11:14:01
+2026-03-04 11:14:01 [INFO] __main__: ============================================================
+2026-03-04 11:14:01 [INFO] WDM: ====== WebDriver manager ======
+2026-03-04 11:14:04 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-04 11:14:05 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-04 11:14:06 [INFO] WDM: Driver [C:\Users\Damian Maślanka\.wdm\drivers\chromedriver\win64\145.0.7632.117\chromedriver-win32/chromedriver.exe] found in cache
+2026-03-04 11:14:07 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/
+2026-03-04 11:14:10 [INFO] scraper: requests OK (271336 bytes) dla: https://tge.pl/
+2026-03-04 11:14:10 [INFO] scraper: Znaleziono 4 elementów <table> na: https://tge.pl/
+2026-03-04 11:14:10 [INFO] scraper: Tabela 1: 6 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:10 [INFO] scraper: Tabela 2: 3 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:10 [INFO] scraper: Tabela 3: 4 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:10 [INFO] scraper: Tabela 4: 3 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (toe)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:10 [INFO] scraper: requests: znaleziono 4 tabel z https://tge.pl/
+2026-03-04 11:14:10 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/otf
+2026-03-04 11:14:12 [INFO] scraper: requests OK (182291 bytes) dla: https://tge.pl/otf
+2026-03-04 11:14:12 [INFO] scraper: Znaleziono 3 elementów <table> na: https://tge.pl/otf
+2026-03-04 11:14:12 [INFO] scraper: Tabela 1: 6 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:12 [INFO] scraper: Tabela 2: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:12 [INFO] scraper: Tabela 3: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-04 11:14:12 [INFO] scraper: requests: znaleziono 3 tabel z https://tge.pl/otf
+2026-03-04 11:14:12 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:14:14 [INFO] scraper: requests OK (301887 bytes) dla: https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:14:14 [INFO] scraper: Znaleziono 1 elementów <table> na: https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:14:14 [INFO] scraper: Tabela 1: 120 wierszy × 17 kolumn | Kolumny: ['Unnamed: 0_level_0 | Data dostawy', 'Unnamed: 1_level_0 | Typ instrumentu', 'Fixing I | Kurs [PLN/MWh]', 'Fixing I | Wolumen [MW]', 'Notowania ciągłe | Kurs (średnioważony) [PLN/MWh]', 'Notowania ciągłe | Wolumen [MW]', 'Fixing II | Kurs jednolity [EUR/MWh]', 'Fixing II | Kurs jednolity [PLN/MWh]']
+2026-03-04 11:14:14 [INFO] scraper: requests: znaleziono 1 tabel z https://tge.pl/energia-elektryczna-rdn
+2026-03-04 11:14:16 [INFO] scraper: Scraping zakończony. Pobrano łącznie 8 tabeli(e) z 3 stron.
+2026-03-04 11:14:16 [INFO] data_manager: Dopisuję do istniejącego pliku: tge_dane_historyczne.xlsx
+2026-03-04 11:14:17 [INFO] data_manager: Zapisano 8 arkuszy do tge_dane_historyczne.xlsx
+2026-03-04 11:14:17 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Liczba arkuszy: 8
+  - tge_pl_T1: 18 rekordów
+  - tge_pl_T2: 9 rekordów
+  - tge_pl_T3: 12 rekordów
+  - tge_pl_T4: 9 rekordów
+  - otf_T1: 18 rekordów
+  - otf_T2: 12 rekordów
+  - otf_T3: 12 rekordów
+  - energia-elektryczna-rdn_T1: 360 rekordów
+2026-03-04 11:14:17 [INFO] __main__: Cykl zakończony w 15.8 s.
+2026-03-04 11:14:17 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-04 11:14:31 [INFO] main: Załadowano konfigurację z: config.yaml
+2026-03-04 11:14:31 [INFO] main: Harmonogram: codziennie o 08:00
+2026-03-04 11:14:31 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-04 11:14:31 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-04 11:14:31 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-04 11:14:31 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-04 11:14:32 [INFO] werkzeug: 127.0.0.1 - - [04/Mar/2026 11:14:32] "GET / HTTP/1.1" 200 -
+2026-03-05 07:59:13 [INFO] __main__: Załadowano konfigurację z: config.yaml
+2026-03-05 07:59:13 [INFO] __main__: Tryb CLI (--run-once). Uruchamiam jednorazowe pobranie.
+2026-03-05 07:59:13 [INFO] __main__: ============================================================
+2026-03-05 07:59:13 [INFO] __main__: Start cyklu: 2026-03-05 07:59:13
+2026-03-05 07:59:13 [INFO] __main__: ============================================================
+2026-03-05 07:59:13 [INFO] WDM: ====== WebDriver manager ======
+2026-03-05 07:59:15 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-05 07:59:15 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-05 07:59:16 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-05 07:59:18 [INFO] WDM: WebDriver version 145.0.7632.117 selected
+2026-03-05 07:59:18 [INFO] WDM: Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/145.0.7632.117/win32/chromedriver-win32.zip
+2026-03-05 07:59:18 [INFO] WDM: About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/145.0.7632.117/win32/chromedriver-win32.zip
+2026-03-05 07:59:18 [INFO] WDM: Driver downloading response is 200
+2026-03-05 07:59:19 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-05 07:59:20 [INFO] WDM: Driver has been saved in cache [C:\Users\Damian Maślanka\.wdm\drivers\chromedriver\win64\145.0.7632.117]
+2026-03-05 07:59:22 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/
+2026-03-05 07:59:24 [INFO] scraper: requests OK (272914 bytes) dla: https://tge.pl/
+2026-03-05 07:59:24 [INFO] scraper: Znaleziono 4 elementów <table> na: https://tge.pl/
+2026-03-05 07:59:24 [INFO] scraper: Tabela 1: 6 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:24 [INFO] scraper: Tabela 2: 3 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:24 [INFO] scraper: Tabela 3: 4 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:24 [INFO] scraper: Tabela 4: 3 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (toe)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:24 [INFO] scraper: requests: znaleziono 4 tabel z https://tge.pl/
+2026-03-05 07:59:24 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/otf
+2026-03-05 07:59:26 [INFO] scraper: requests OK (182994 bytes) dla: https://tge.pl/otf
+2026-03-05 07:59:26 [INFO] scraper: Znaleziono 3 elementów <table> na: https://tge.pl/otf
+2026-03-05 07:59:26 [INFO] scraper: Tabela 1: 6 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:26 [INFO] scraper: Tabela 2: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:26 [INFO] scraper: Tabela 3: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 07:59:26 [INFO] scraper: requests: znaleziono 3 tabel z https://tge.pl/otf
+2026-03-05 07:59:26 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/energia-elektryczna-rdn
+2026-03-05 07:59:28 [INFO] scraper: requests OK (371435 bytes) dla: https://tge.pl/energia-elektryczna-rdn
+2026-03-05 07:59:28 [INFO] scraper: Znaleziono 1 elementów <table> na: https://tge.pl/energia-elektryczna-rdn
+2026-03-05 07:59:28 [INFO] scraper: Tabela 1: 120 wierszy × 17 kolumn | Kolumny: ['Unnamed: 0_level_0 | Data dostawy', 'Unnamed: 1_level_0 | Typ instrumentu', 'Fixing I | Kurs [PLN/MWh]', 'Fixing I | Wolumen [MW]', 'Notowania ciągłe | Kurs (średnioważony) [PLN/MWh]', 'Notowania ciągłe | Wolumen [MW]', 'Fixing II | Kurs jednolity [EUR/MWh]', 'Fixing II | Kurs jednolity [PLN/MWh]']
+2026-03-05 07:59:28 [INFO] scraper: requests: znaleziono 1 tabel z https://tge.pl/energia-elektryczna-rdn
+2026-03-05 07:59:31 [INFO] scraper: Scraping zakończony. Pobrano łącznie 8 tabeli(e) z 3 stron.
+2026-03-05 07:59:31 [INFO] data_manager: Dopisuję do istniejącego pliku: tge_dane_historyczne.xlsx
+2026-03-05 07:59:31 [INFO] data_manager: Zapisano 8 arkuszy do tge_dane_historyczne.xlsx
+2026-03-05 07:59:32 [INFO] __main__: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Liczba arkuszy: 8
+  - tge_pl_T1: 24 rekordów
+  - tge_pl_T2: 12 rekordów
+  - tge_pl_T3: 16 rekordów
+  - tge_pl_T4: 12 rekordów
+  - otf_T1: 24 rekordów
+  - otf_T2: 16 rekordów
+  - otf_T3: 16 rekordów
+  - energia-elektryczna-rdn_T1: 480 rekordów
+2026-03-05 07:59:32 [INFO] __main__: Cykl zakończony w 18.8 s.
+2026-03-05 07:59:32 [INFO] __main__: Gotowe. Plik: tge_dane_historyczne.xlsx
+2026-03-05 07:59:39 [INFO] main: Załadowano konfigurację z: config.yaml
+2026-03-05 07:59:39 [INFO] main: Harmonogram: codziennie o 08:00
+2026-03-05 07:59:39 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-05 07:59:39 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-05 07:59:39 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-05 07:59:39 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-05 07:59:43 [INFO] werkzeug: 127.0.0.1 - - [05/Mar/2026 07:59:43] "GET / HTTP/1.1" 200 -
+2026-03-05 07:59:43 [INFO] werkzeug: 127.0.0.1 - - [05/Mar/2026 07:59:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-05 08:00:09 [INFO] main: ============================================================
+2026-03-05 08:00:09 [INFO] main: Start cyklu: 2026-03-05 08:00:09
+2026-03-05 08:00:09 [INFO] main: ============================================================
+2026-03-05 08:00:09 [INFO] WDM: ====== WebDriver manager ======
+2026-03-05 08:00:11 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-05 08:00:12 [INFO] WDM: Get LATEST chromedriver version for google-chrome
+2026-03-05 08:00:12 [INFO] WDM: Driver [C:\Users\Damian Maślanka\.wdm\drivers\chromedriver\win64\145.0.7632.117\chromedriver-win32/chromedriver.exe] found in cache
+2026-03-05 08:00:14 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/
+2026-03-05 08:00:16 [INFO] scraper: requests OK (272914 bytes) dla: https://tge.pl/
+2026-03-05 08:00:16 [INFO] scraper: Znaleziono 4 elementów <table> na: https://tge.pl/
+2026-03-05 08:00:16 [INFO] scraper: Tabela 1: 6 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:16 [INFO] scraper: Tabela 2: 3 wierszy × 3 kolumn | Kolumny: ['Indeks', 'Kurs (PLN/MWh)', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:16 [INFO] scraper: Tabela 3: 4 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:16 [INFO] scraper: Tabela 4: 3 wierszy × 3 kolumn | Kolumny: ['Unnamed: 1', 'Kurs', 'Wolumen (toe)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:16 [INFO] scraper: requests: znaleziono 4 tabel z https://tge.pl/
+2026-03-05 08:00:16 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/otf
+2026-03-05 08:00:18 [INFO] scraper: requests OK (182994 bytes) dla: https://tge.pl/otf
+2026-03-05 08:00:18 [INFO] scraper: Znaleziono 3 elementów <table> na: https://tge.pl/otf
+2026-03-05 08:00:18 [INFO] scraper: Tabela 1: 6 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:19 [INFO] scraper: Tabela 2: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:19 [INFO] scraper: Tabela 3: 4 wierszy × 2 kolumn | Kolumny: ['Kontrakt', 'DKR (PLN/MWh)', 'Data_Pobrania', 'Zrodlo_URL', 'Numer_Tabeli']
+2026-03-05 08:00:19 [INFO] scraper: requests: znaleziono 3 tabel z https://tge.pl/otf
+2026-03-05 08:00:19 [INFO] scraper: Próba 1/2 (requests): https://tge.pl/energia-elektryczna-rdn
+2026-03-05 08:00:20 [INFO] scraper: requests OK (371435 bytes) dla: https://tge.pl/energia-elektryczna-rdn
+2026-03-05 08:00:20 [INFO] scraper: Znaleziono 1 elementów <table> na: https://tge.pl/energia-elektryczna-rdn
+2026-03-05 08:00:20 [INFO] scraper: Tabela 1: 120 wierszy × 17 kolumn | Kolumny: ['Unnamed: 0_level_0 | Data dostawy', 'Unnamed: 1_level_0 | Typ instrumentu', 'Fixing I | Kurs [PLN/MWh]', 'Fixing I | Wolumen [MW]', 'Notowania ciągłe | Kurs (średnioważony) [PLN/MWh]', 'Notowania ciągłe | Wolumen [MW]', 'Fixing II | Kurs jednolity [EUR/MWh]', 'Fixing II | Kurs jednolity [PLN/MWh]']
+2026-03-05 08:00:20 [INFO] scraper: requests: znaleziono 1 tabel z https://tge.pl/energia-elektryczna-rdn
+2026-03-05 08:00:23 [INFO] scraper: Scraping zakończony. Pobrano łącznie 8 tabeli(e) z 3 stron.
+2026-03-05 08:00:23 [INFO] data_manager: Dopisuję do istniejącego pliku: tge_dane_historyczne.xlsx
+2026-03-05 08:00:24 [INFO] data_manager: Zapisano 8 arkuszy do tge_dane_historyczne.xlsx
+2026-03-05 08:00:24 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Liczba arkuszy: 8
+  - tge_pl_T1: 30 rekordów
+  - tge_pl_T2: 15 rekordów
+  - tge_pl_T3: 20 rekordów
+  - tge_pl_T4: 15 rekordów
+  - otf_T1: 30 rekordów
+  - otf_T2: 20 rekordów
+  - otf_T3: 20 rekordów
+  - energia-elektryczna-rdn_T1: 600 rekordów
+2026-03-05 08:00:24 [INFO] main: Cykl zakończony w 15.1 s.
+2026-03-05 13:46:06 [INFO] main: Załadowano konfigurację z: config.yaml
+2026-03-05 13:46:06 [INFO] main: Harmonogram: codziennie o 08:00
+2026-03-05 13:46:06 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-05 13:46:06 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-05 13:46:07 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-05 13:46:07 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-05 13:46:22 [INFO] werkzeug: 127.0.0.1 - - [05/Mar/2026 13:46:22] "GET / HTTP/1.1" 200 -
