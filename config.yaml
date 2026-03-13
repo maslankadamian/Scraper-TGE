@@ -21,12 +21,13 @@ schedule:
 scraping:
   sources:
     energy_base: https://tge.pl/energia-elektryczna-otf
-    power_spot: https://tge.pl/energia-elektryczna-rdn
+    power_spot: https://api.raporty.pse.pl/api/csdac-pln
     gas_spot: https://tge.pl/gaz-rdn
     co2_history: https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com
   urls:
     - https://tge.pl/energia-elektryczna-otf
-    - https://tge.pl/energia-elektryczna-rdn
+    - https://api.raporty.pse.pl/app/home
+    - https://api.raporty.pse.pl/api/csdac-pln
     - https://tge.pl/gaz-rdn
     - https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com
   page_load_timeout: 30

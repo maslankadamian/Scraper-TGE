@@ -1,11 +1,11 @@
-﻿"""
-Dedicated market data scraping for the daily Excel report.
+"""
+Dedicated market data collection for the Excel report.
 
-Collected metrics:
-- CO2 historical prices (used for current, weekly and monthly ranges)
-- TGE BASE yearly contracts for 2026, 2027 and 2028
-- TGE electricity spot price for the latest available trading session
-- TGE gas spot price for the latest available trading session
+Sources:
+- CO2 history from Investing
+- BASE yearly contracts from TGE
+- Electricity SPOT history from PSE API (hourly aggregation from quarter-hour prices)
+- Gas spot index from TGE
 """
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_SOURCES = {
     "energy_base": "https://tge.pl/energia-elektryczna-otf",
-    "power_spot": "https://tge.pl/energia-elektryczna-rdn",
+    "power_spot": "https://api.raporty.pse.pl/api/csdac-pln",
     "gas_spot": "https://tge.pl/gaz-rdn",
     "co2_history": "https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com",
 }
@@ -40,6 +40,13 @@ REQUEST_HEADERS = {
         "q=0.9,image/avif,image/webp,*/*;q=0.8"
     ),
 }
+
+API_HEADERS = {
+    "User-Agent": REQUEST_HEADERS["User-Agent"],
+    "Accept": "application/json",
+}
+
+TGE_HISTORY_DAYS = 30
 
 
 def _normalize_label(value: object) -> str:
@@ -72,12 +79,40 @@ def _to_float(value: object) -> float | None:
 
 
 def _fetch_html(url: str, timeout: int = 30) -> str:
-    session = requests.Session()
-    response = session.get(url, headers=REQUEST_HEADERS, timeout=timeout)
+    response = requests.get(url, headers=REQUEST_HEADERS, timeout=timeout)
     response.raise_for_status()
     response.encoding = response.apparent_encoding or "utf-8"
     logger.info("Fetched %s (%d bytes)", url, len(response.text))
     return response.text
+
+
+def _fetch_pse_entities(url: str, params: dict[str, object] | None = None, timeout: int = 30) -> list[dict]:
+    response = requests.get(url, headers=API_HEADERS, params=params, timeout=timeout)
+    response.raise_for_status()
+    payload = response.json()
+    values = list(payload.get("value", []))
+    next_link = payload.get("nextLink")
+
+    while next_link:
+        response = requests.get(next_link, headers=API_HEADERS, timeout=timeout)
+        response.raise_for_status()
+        payload = response.json()
+        values.extend(payload.get("value", []))
+        next_link = payload.get("nextLink")
+
+    logger.info("Fetched %d API rows from %s", len(values), url)
+    return values
+
+
+def _get_tables_for_date(
+    source_url: str,
+    session_date: datetime,
+    table_cache: dict[str, list[pd.DataFrame]],
+) -> tuple[str, list[pd.DataFrame]]:
+    dated_url = _date_url(source_url, session_date)
+    if dated_url not in table_cache:
+        table_cache[dated_url] = _read_tables_from_html(_fetch_html(dated_url))
+    return dated_url, table_cache[dated_url]
 
 
 def _flatten_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -85,7 +120,11 @@ def _flatten_columns(df: pd.DataFrame) -> pd.DataFrame:
     if isinstance(normalized.columns, pd.MultiIndex):
         columns = []
         for col in normalized.columns:
-            parts = [str(part).strip() for part in col if str(part).strip() and "Unnamed" not in str(part)]
+            parts = [
+                str(part).strip()
+                for part in col
+                if str(part).strip() and "Unnamed" not in str(part)
+            ]
             columns.append(" | ".join(parts) if parts else str(col[-1]).strip())
         normalized.columns = columns
     else:
@@ -111,17 +150,6 @@ def _resolve_sources(config: dict) -> dict[str, str]:
             if value:
                 sources[key] = value
 
-    for url in scraping_cfg.get("urls", []):
-        normalized = _normalize_label(url)
-        if "energia-elektryczna-otf" in normalized or normalized.endswith("/otf"):
-            sources["energy_base"] = url
-        elif "energia-elektryczna-rdn" in normalized:
-            sources["power_spot"] = url
-        elif "gaz-rdn" in normalized:
-            sources["gas_spot"] = url
-        elif "co2" in normalized:
-            sources["co2_history"] = url
-
     return sources
 
 
@@ -133,11 +161,6 @@ def _find_column(columns: Iterable[object], patterns: Iterable[str]) -> str | No
             if pattern_norm in column_norm:
                 return column
     return None
-
-
-def _extract_embedded_date(value: object) -> str | None:
-    match = re.search(r"(20\d{2}-\d{2}-\d{2})", str(value or ""))
-    return match.group(1) if match else None
 
 
 def _format_query_date(date_value: datetime) -> str:
@@ -164,7 +187,11 @@ def _pick_numeric_value(row: pd.Series, patterns: list[str]) -> tuple[float | No
     return None, ""
 
 
-def _select_row_by_exact_keyword(table: pd.DataFrame, keyword: str, column: str | None = None) -> pd.Series | None:
+def _select_row_by_exact_keyword(
+    table: pd.DataFrame,
+    keyword: str,
+    column: str | None = None,
+) -> pd.Series | None:
     keyword_norm = _normalize_label(keyword)
     if column and column in table.columns:
         for _, row in table.iterrows():
@@ -177,52 +204,45 @@ def _select_row_by_exact_keyword(table: pd.DataFrame, keyword: str, column: str 
     return None
 
 
-def _build_energy_base_frame(source_url: str, fetch_time: datetime, days_back: int = 7) -> pd.DataFrame:
+def _build_energy_base_record(
+    table: pd.DataFrame,
+    fetch_time: datetime,
+    report_date: datetime,
+    source_url: str,
+) -> dict[str, object] | None:
+    contract_col = _find_column(table.columns, ["kontrakt", "contract", "produkt"])
+    if not contract_col:
+        return None
+
     found: dict[int, dict[str, object]] = {}
-
-    for session_date in _candidate_session_dates(fetch_time, days_back=days_back):
-        dated_url = _date_url(source_url, session_date)
-        tables = _read_tables_from_html(_fetch_html(dated_url))
-        if not tables:
+    for year in (2026, 2027, 2028):
+        token = f"base_y-{str(year)[-2:]}"
+        row = None
+        for _, candidate in table.iterrows():
+            if token in _normalize_label(candidate.get(contract_col)):
+                row = candidate
+                break
+        if row is None:
             continue
 
-        table = tables[0]
-        contract_col = _find_column(table.columns, ["kontrakt", "contract", "produkt"])
-        if not contract_col:
+        price, price_column = _pick_numeric_value(
+            row,
+            ["dkr", "kurs pierwszej transakcji", "kurs min", "kurs maks", "wartość", "wartosc"],
+        )
+        if price is None:
             continue
 
-        for year in (2026, 2027, 2028):
-            if year in found:
-                continue
-            token = f"base_y-{str(year)[-2:]}"
-            row = None
-            for _, candidate in table.iterrows():
-                if token in _normalize_label(candidate.get(contract_col)):
-                    row = candidate
-                    break
-            if row is None:
-                continue
+        found[year] = {
+            "contract": row.get(contract_col),
+            "price": price,
+            "price_column": price_column,
+        }
 
-            price, price_column = _pick_numeric_value(
-                row,
-                ["dkr", "kurs pierwszej transakcji", "kurs min", "kurs maks", "wartość"],
-            )
-            if price is None:
-                continue
-
-            found[year] = {
-                "contract": row.get(contract_col),
-                "price": price,
-                "price_column": price_column,
-                "market_date": session_date.strftime("%Y-%m-%d"),
-                "source_url": dated_url,
-            }
-
-        if 2027 in found and 2028 in found:
-            break
+    if not found:
+        return None
 
     record: dict[str, object] = {
-        "Data_Raportu": fetch_time.strftime("%Y-%m-%d"),
+        "Data_Raportu": report_date.strftime("%Y-%m-%d"),
         "Data_Pobrania": fetch_time.strftime("%Y-%m-%d %H:%M:%S"),
         "Zrodlo_URL": source_url,
     }
@@ -231,73 +251,232 @@ def _build_energy_base_frame(source_url: str, fetch_time: datetime, days_back: i
         current = found.get(year)
         record[f"Kontrakt_{year}"] = current.get("contract") if current else ""
         record[f"Cena_BASE_{year}_PLN_MWh"] = current.get("price") if current else None
-        record[f"Data_Notowania_{year}"] = current.get("market_date") if current else None
+        record[f"Data_Notowania_{year}"] = report_date.strftime("%Y-%m-%d") if current else None
         record[f"Kolumna_Ceny_{year}"] = current.get("price_column") if current else ""
-        record[f"Status_{year}"] = (
-            "OK" if current else "Brak aktywnego notowania w ostatnich dostepnych sesjach"
+        record[f"Status_{year}"] = "OK" if current else "Brak notowania dla tej sesji"
+        record[f"URL_Notowania_{year}"] = source_url if current else ""
+
+    return record
+
+
+def _build_energy_base_snapshot(
+    source_url: str,
+    fetch_time: datetime,
+    table_cache: dict[str, list[pd.DataFrame]],
+    days_back: int = 7,
+) -> dict[str, object] | None:
+    latest_session_record: dict[str, object] | None = None
+    latest_session_url = ""
+
+    for session_date in _candidate_session_dates(fetch_time, days_back=days_back):
+        dated_url, tables = _get_tables_for_date(source_url, session_date, table_cache)
+        if not tables:
+            continue
+
+        record = _build_energy_base_record(
+            table=tables[0],
+            fetch_time=fetch_time,
+            report_date=session_date,
+            source_url=dated_url,
         )
-        record[f"URL_Notowania_{year}"] = current.get("source_url") if current else ""
+        if record:
+            latest_session_record = record
+            latest_session_url = dated_url
+            break
 
-    return pd.DataFrame([record])
+    if latest_session_record is None:
+        return None
+
+    snapshot = dict(latest_session_record)
+    snapshot["Data_Raportu"] = fetch_time.strftime("%Y-%m-%d")
+    snapshot["Data_Pobrania"] = fetch_time.strftime("%Y-%m-%d %H:%M:%S")
+    snapshot["Zrodlo_URL"] = source_url
+
+    for year in (2026, 2027, 2028):
+        has_price = snapshot.get(f"Cena_BASE_{year}_PLN_MWh") is not None
+        if has_price:
+            snapshot[f"URL_Notowania_{year}"] = latest_session_url
+        else:
+            snapshot[f"Status_{year}"] = "Brak aktywnego notowania w ostatnich dostepnych sesjach"
+
+    return snapshot
 
 
-def _build_index_frame(
+def _build_energy_base_frame(source_url: str, fetch_time: datetime, history_days: int = TGE_HISTORY_DAYS) -> pd.DataFrame:
+    records: list[dict[str, object]] = []
+    table_cache: dict[str, list[pd.DataFrame]] = {}
+
+    snapshot = _build_energy_base_snapshot(source_url, fetch_time, table_cache)
+    if snapshot:
+        records.append(snapshot)
+
+    for offset in range(history_days - 1, -1, -1):
+        session_date = datetime.combine(fetch_time.date() - timedelta(days=offset), datetime.min.time())
+        dated_url, tables = _get_tables_for_date(source_url, session_date, table_cache)
+        if not tables:
+            continue
+
+        record = _build_energy_base_record(tables[0], fetch_time, session_date, dated_url)
+        if record:
+            records.append(record)
+
+    if not records:
+        raise ValueError("Could not parse BASE history from TGE")
+
+    return pd.DataFrame(records)
+
+
+def _build_gas_index_record(
+    target_table: pd.DataFrame,
+    fetch_time: datetime,
+    report_date: datetime,
+    source_url: str,
+    index_keyword: str,
+    value_prefix: str,
+) -> dict[str, object] | None:
+    index_col = _find_column(target_table.columns, ["indeks"])
+    row = _select_row_by_exact_keyword(target_table, index_keyword, column=index_col)
+    if row is None:
+        return None
+
+    price, source_column = _pick_numeric_value(row, ["kurs", "ostatnio", "price"])
+    if price is None:
+        return None
+
+    change_column = _find_column(target_table.columns, ["zmiana", "change"])
+    volume_column = _find_column(target_table.columns, ["wolumen", "volume"])
+
+    record: dict[str, object] = {
+        "Data_Raportu": report_date.strftime("%Y-%m-%d"),
+        "Data_Pobrania": fetch_time.strftime("%Y-%m-%d %H:%M:%S"),
+        "Data_Notowania": report_date.strftime("%Y-%m-%d"),
+        "Indeks": index_keyword,
+        "Cena_Biezaca_PLN_MWh": price,
+        "Zmiana_Proc": _to_float(row.get(change_column)) if change_column else None,
+        "Wolumen_MWh": _to_float(row.get(volume_column)) if volume_column else None,
+        "Kolumna_Zrodla_Ceny": source_column,
+        "Zrodlo_URL": source_url,
+    }
+
+    for column in (index_col, change_column, volume_column):
+        if column:
+            normalized_column = re.sub(r"[^A-Za-z0-9]+", "_", str(column)).strip("_")
+            if normalized_column:
+                record[f"{value_prefix}_{normalized_column}"] = row.get(column)
+
+    return record
+
+
+def _build_gas_index_frame(
     source_url: str,
     fetch_time: datetime,
     index_keyword: str,
     value_prefix: str,
-    days_back: int = 7,
+    history_days: int = TGE_HISTORY_DAYS,
 ) -> pd.DataFrame:
-    for session_date in _candidate_session_dates(fetch_time, days_back=days_back):
-        dated_url = _date_url(source_url, session_date)
-        tables = _read_tables_from_html(_fetch_html(dated_url))
+    records: list[dict[str, object]] = []
+    table_cache: dict[str, list[pd.DataFrame]] = {}
+
+    for offset in range(history_days - 1, -1, -1):
+        session_date = datetime.combine(fetch_time.date() - timedelta(days=offset), datetime.min.time())
+        dated_url, tables = _get_tables_for_date(source_url, session_date, table_cache)
         if not tables:
             continue
 
         target_table = None
         for table in tables:
             index_col = _find_column(table.columns, ["indeks"])
-            price_col = _find_column(table.columns, ["kurs"]) 
+            price_col = _find_column(table.columns, ["kurs"])
             if index_col and price_col:
                 target_table = table
                 break
+
         if target_table is None:
             continue
 
-        index_col = _find_column(target_table.columns, ["indeks"])
-        row = _select_row_by_exact_keyword(target_table, index_keyword, column=index_col)
-        if row is None:
-            continue
+        record = _build_gas_index_record(
+            target_table=target_table,
+            fetch_time=fetch_time,
+            report_date=session_date,
+            source_url=dated_url,
+            index_keyword=index_keyword,
+            value_prefix=value_prefix,
+        )
+        if record:
+            records.append(record)
 
-        price, source_column = _pick_numeric_value(row, ["kurs", "ostatnio", "price"])
-        if price is None:
-            continue
+    if not records:
+        raise ValueError(f"Could not find a published index row for {index_keyword}")
 
-        market_date = _extract_embedded_date(row.get(index_col + '.1')) if f"{index_col}.1" in target_table.columns else None
-        if market_date is None:
-            secondary_col = _find_column(target_table.columns, ["indeks.1", "script"])
-            market_date = _extract_embedded_date(row.get(secondary_col)) if secondary_col else None
-        if market_date is None:
-            market_date = session_date.strftime("%Y-%m-%d")
+    return pd.DataFrame(records)
 
-        record: dict[str, object] = {
-            "Data_Raportu": fetch_time.strftime("%Y-%m-%d"),
-            "Data_Pobrania": fetch_time.strftime("%Y-%m-%d %H:%M:%S"),
-            "Data_Notowania": market_date,
-            "Indeks": index_keyword,
-            "Cena_Biezaca_PLN_MWh": price,
-            "Kolumna_Zrodla_Ceny": source_column,
-            "Zrodlo_URL": dated_url,
-        }
 
-        for column in row.index:
-            normalized_column = re.sub(r"[^A-Za-z0-9]+", "_", str(column)).strip("_")
-            if normalized_column:
-                record[f"{value_prefix}_{normalized_column}"] = row.get(column)
+def _build_power_spot_history_frame(source_url: str, fetch_time: datetime, history_days: int = 30) -> pd.DataFrame:
+    start_date = (fetch_time.date() - timedelta(days=history_days - 1)).strftime("%Y-%m-%d")
+    end_date = fetch_time.date().strftime("%Y-%m-%d")
+    params = {
+        "$filter": f"business_date ge '{start_date}' and business_date le '{end_date}'",
+        "$orderby": "business_date asc,dtime asc",
+        "$first": 500,
+    }
 
-        return pd.DataFrame([record])
+    rows = _fetch_pse_entities(source_url, params=params)
+    if not rows:
+        raise ValueError("PSE API returned no spot rows")
 
-    raise ValueError(f"Could not find a published index row for {index_keyword}")
+    history = pd.DataFrame(rows)
+    if history.empty or "csdac_pln" not in history.columns:
+        raise ValueError("PSE API payload does not expose csdac_pln")
+
+    history["Cena_Kwadrans_PLN_MWh"] = pd.to_numeric(history["csdac_pln"], errors="coerce")
+    history["Data_Dostawy"] = history["business_date"].astype(str)
+    history["Dtime"] = pd.to_datetime(history["dtime"], errors="coerce")
+    history["Data_Publikacji"] = pd.to_datetime(history["publication_ts"], errors="coerce")
+    history = history.dropna(subset=["Cena_Kwadrans_PLN_MWh", "Dtime"]).copy()
+
+    history["Kwadrans_Od"] = history["Dtime"] - pd.Timedelta(minutes=15)
+    history["Godzina_Od"] = history["Kwadrans_Od"].dt.floor("h")
+    history["Godzina_Do"] = history["Godzina_Od"] + pd.Timedelta(hours=1)
+
+    grouped = (
+        history.groupby(["Data_Dostawy", "Godzina_Od", "Godzina_Do"], as_index=False)
+        .agg(
+            Cena_SPOT_PLN_MWh=("Cena_Kwadrans_PLN_MWh", "mean"),
+            Cena_Min_Kwadrans_PLN_MWh=("Cena_Kwadrans_PLN_MWh", "min"),
+            Cena_Max_Kwadrans_PLN_MWh=("Cena_Kwadrans_PLN_MWh", "max"),
+            Liczba_Kwadransow=("Cena_Kwadrans_PLN_MWh", "count"),
+            Data_Publikacji=("Data_Publikacji", "max"),
+        )
+    )
+
+    grouped["Godzina_Od"] = grouped["Godzina_Od"].dt.strftime("%Y-%m-%d %H:%M:%S")
+    grouped["Godzina_Do"] = grouped["Godzina_Do"].dt.strftime("%Y-%m-%d %H:%M:%S")
+    grouped["Godzina_Label"] = (
+        pd.to_datetime(grouped["Godzina_Od"]).dt.strftime("%H:%M")
+        + " - "
+        + pd.to_datetime(grouped["Godzina_Do"]).dt.strftime("%H:%M")
+    )
+    grouped["Data_Publikacji"] = grouped["Data_Publikacji"].dt.strftime("%Y-%m-%d %H:%M:%S")
+    grouped["Data_Pobrania"] = fetch_time.strftime("%Y-%m-%d %H:%M:%S")
+    grouped["Zrodlo_URL"] = source_url
+    grouped["Interwal_Zrodla"] = "PSE CSDAC 15m -> agregacja do 1h"
+
+    return grouped[
+        [
+            "Data_Dostawy",
+            "Godzina_Od",
+            "Godzina_Do",
+            "Godzina_Label",
+            "Cena_SPOT_PLN_MWh",
+            "Cena_Min_Kwadrans_PLN_MWh",
+            "Cena_Max_Kwadrans_PLN_MWh",
+            "Liczba_Kwadransow",
+            "Data_Publikacji",
+            "Data_Pobrania",
+            "Zrodlo_URL",
+            "Interwal_Zrodla",
+        ]
+    ]
 
 
 def _build_co2_history_frame(source_url: str, fetch_time: datetime) -> pd.DataFrame:
@@ -307,7 +486,10 @@ def _build_co2_history_frame(source_url: str, fetch_time: datetime) -> pd.DataFr
     selected_rows: list[dict[str, object]] = []
     selected_table = None
     for table in soup.find_all("table"):
-        header_text = " ".join(_normalize_label(th.get_text(" ", strip=True)) for th in table.find_all("th"))
+        header_text = " ".join(
+            _normalize_label(th.get_text(" ", strip=True))
+            for th in table.find_all("th")
+        )
         if "data" in header_text and ("ostatnio" in header_text or "price" in header_text):
             selected_table = table
             break
@@ -377,16 +559,11 @@ def scrape_all(config: dict) -> dict[str, pd.DataFrame]:
         "energy_base_history",
     )
     results["power_spot_history"] = _safe_dataset(
-        lambda: _build_index_frame(
-            source_url=sources["power_spot"],
-            fetch_time=fetch_time,
-            index_keyword="TGeBase",
-            value_prefix="Energia",
-        ),
+        lambda: _build_power_spot_history_frame(sources["power_spot"], fetch_time, history_days=30),
         "power_spot_history",
     )
     results["gas_spot_history"] = _safe_dataset(
-        lambda: _build_index_frame(
+        lambda: _build_gas_index_frame(
             source_url=sources["gas_spot"],
             fetch_time=fetch_time,
             index_keyword="TGEgasDA",
@@ -405,4 +582,3 @@ def scrape_all(config: dict) -> dict[str, pd.DataFrame]:
         sum(1 for df in results.values() if df is not None and not df.empty),
     )
     return results
-
