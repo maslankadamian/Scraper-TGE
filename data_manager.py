@@ -13,6 +13,7 @@ from __future__ import annotations
 import logging
 from datetime import timedelta
 from pathlib import Path
+from datetime import datetime as _datetime
 
 import pandas as pd
 from openpyxl import load_workbook
@@ -23,17 +24,19 @@ logger = logging.getLogger(__name__)
 
 SHEETS = {
     "report": "Raport_dzienny",
-    "co2_history": "CO2_historia",
-    "co2_7d": "CO2_7D",
-    "co2_30d": "CO2_30D",
+    "co2": "CO2",
+    "energy_base": "Energia_BASE",
+    "power_spot": "Spot_energia",
+    "power_spot_avg": "Spot_energia_srednia",
+    "gas": "Gaz",
+}
+
+# Old sheet names kept for backward-compatible reading of existing workbooks
+_OLD_SHEET_NAMES = {
+    "co2": "CO2_historia",
     "energy_base": "Energia_BASE_hist",
     "power_spot": "Spot_energia_hist",
-    "power_spot_day": "Spot_energia_dzien",
-    "power_spot_7d": "Spot_energia_7D",
-    "power_spot_30d": "Spot_energia_30D",
-    "gas_history": "Gaz_historia",
-    "gas_7d": "Gaz_7D",
-    "gas_30d": "Gaz_30D",
+    "gas": "Gaz_historia",
 }
 
 POWER_SPOT_COLUMNS = [
@@ -177,6 +180,27 @@ def _sort_spot_history(df: pd.DataFrame) -> pd.DataFrame:
     result["__hour"] = _to_datetime_series(result, "Godzina_Od")
     result = result.sort_values(["__day", "__hour"], ascending=[False, True])
     return result.drop(columns=["__day", "__hour"]).reset_index(drop=True)
+
+
+def _calendar_month_cutoff() -> pd.Timestamp:
+    """Return the first day of the previous full calendar month."""
+    today = pd.Timestamp.today().normalize()
+    first_of_current = today.replace(day=1)
+    return (first_of_current - timedelta(days=1)).replace(day=1)
+
+
+def _from_calendar_month(df: pd.DataFrame, date_column: str) -> pd.DataFrame:
+    """Filter rows from start of previous calendar month to today."""
+    if df.empty or date_column not in df.columns:
+        return df.copy()
+    subset = df.copy()
+    subset["__date"] = _to_datetime_series(subset, date_column)
+    subset = subset.dropna(subset=["__date"])
+    if subset.empty:
+        return df.iloc[0:0].copy()
+    cutoff = _calendar_month_cutoff()
+    subset = subset[subset["__date"] >= cutoff].drop(columns=["__date"])
+    return subset.reset_index(drop=True)
 
 
 def _normalize_power_spot_history(df: pd.DataFrame | None) -> pd.DataFrame:
@@ -449,7 +473,7 @@ def _build_spot_rows(power_spot_history: pd.DataFrame) -> list[dict[str, object]
             "Wartosc": latest_day.get("Cena_Srednia_Dzien_PLN_MWh"),
             "Jednostka": "PLN/MWh",
             "Data": latest_day.get("Data_Dostawy", ""),
-            "Uwagi": f"{int(latest_day.get('Liczba_Godzin', 0))} godzin w arkuszu {SHEETS['power_spot_day']}",
+            "Uwagi": f"{int(latest_day.get('Liczba_Godzin', 0))} godzin w arkuszu {SHEETS['power_spot']}",
         },
         {
             "Sekcja": "Spot energia",
@@ -457,7 +481,7 @@ def _build_spot_rows(power_spot_history: pd.DataFrame) -> list[dict[str, object]
             "Wartosc": latest_day.get("Cena_Min_Dzien_PLN_MWh"),
             "Jednostka": "PLN/MWh",
             "Data": latest_day.get("Data_Dostawy", ""),
-            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot_day']}",
+            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot']}",
         },
         {
             "Sekcja": "Spot energia",
@@ -465,7 +489,7 @@ def _build_spot_rows(power_spot_history: pd.DataFrame) -> list[dict[str, object]
             "Wartosc": latest_day.get("Cena_Max_Dzien_PLN_MWh"),
             "Jednostka": "PLN/MWh",
             "Data": latest_day.get("Data_Dostawy", ""),
-            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot_day']}",
+            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot']}",
         },
     ]
     rows.extend(
@@ -476,9 +500,9 @@ def _build_spot_rows(power_spot_history: pd.DataFrame) -> list[dict[str, object]
             date_column="Data_Dostawy",
             unit="PLN/MWh",
             current_label="Srednia dnia",
-            current_note=f"{int(latest_day.get('Liczba_Godzin', 0))} godzin w arkuszu {SHEETS['power_spot_day']}",
-            sheet_7d=SHEETS["power_spot_7d"],
-            sheet_30d=SHEETS["power_spot_30d"],
+            current_note=f"{int(latest_day.get('Liczba_Godzin', 0))} godzin w arkuszu {SHEETS['power_spot']}",
+            sheet_7d=SHEETS["power_spot_avg"],
+            sheet_30d=SHEETS["power_spot_avg"],
         )[1:]
     )
     return rows
@@ -499,8 +523,8 @@ def _build_report_sheet(
             value_column="Cena_CO2",
             date_column="Data",
             unit="EUR",
-            sheet_7d=SHEETS["co2_7d"],
-            sheet_30d=SHEETS["co2_30d"],
+            sheet_7d=SHEETS["co2"],
+            sheet_30d=SHEETS["co2"],
         )
     )
 
@@ -538,8 +562,8 @@ def _build_report_sheet(
             value_column="Cena_Biezaca_PLN_MWh",
             date_column="Data_Raportu",
             unit="PLN/MWh",
-            sheet_7d=SHEETS["gas_7d"],
-            sheet_30d=SHEETS["gas_30d"],
+            sheet_7d=SHEETS["gas"],
+            sheet_30d=SHEETS["gas"],
         )
     )
 
@@ -551,28 +575,32 @@ def append_to_excel(scraped: dict[str, pd.DataFrame], config: dict) -> Path:
     output_path = _resolve_output_path(config)
     existing = _read_existing_sheets(output_path)
 
+    def _get_existing(key: str) -> pd.DataFrame | None:
+        """Read from new sheet name, fall back to old sheet name."""
+        return existing.get(SHEETS[key]) or existing.get(_OLD_SHEET_NAMES.get(key, ""))
+
     co2_history = _merge_history(
-        existing.get(SHEETS["co2_history"]),
+        _get_existing("co2"),
         scraped.get("co2_history"),
         key_columns=["Data"],
         sort_columns=["Data", "Data_Pobrania"],
     )
     energy_history = _merge_history(
-        _normalize_energy_history(existing.get(SHEETS["energy_base"])),
+        _normalize_energy_history(_get_existing("energy_base")),
         _normalize_energy_history(scraped.get("energy_base_history")),
         key_columns=["Data_Raportu"],
         sort_columns=["Data_Raportu", "Data_Pobrania"],
     )
     energy_history = _normalize_energy_history(energy_history)
     power_spot_history = _merge_history(
-        _normalize_power_spot_history(existing.get(SHEETS["power_spot"])),
+        _normalize_power_spot_history(_get_existing("power_spot")),
         _normalize_power_spot_history(scraped.get("power_spot_history")),
         key_columns=["Data_Dostawy", "Godzina_Od", "Godzina_Do"],
         sort_columns=["Data_Dostawy", "Godzina_Od", "Data_Pobrania"],
     )
     power_spot_history = _normalize_power_spot_history(power_spot_history)
     gas_history = _merge_history(
-        _normalize_gas_history(existing.get(SHEETS["gas_history"])),
+        _normalize_gas_history(_get_existing("gas")),
         _normalize_gas_history(scraped.get("gas_spot_history")),
         key_columns=["Data_Raportu", "Indeks"],
         sort_columns=["Data_Raportu", "Data_Pobrania"],
@@ -581,19 +609,24 @@ def append_to_excel(scraped: dict[str, pd.DataFrame], config: dict) -> Path:
 
     report = _build_report_sheet(co2_history, energy_history, power_spot_history, gas_history)
 
+    spot_range = _sort_spot_history(_from_calendar_month(power_spot_history, "Data_Dostawy"))
+    spot_avg = _build_power_spot_daily_summary(spot_range).sort_values(
+        "Data_Dostawy", ascending=False
+    ).reset_index(drop=True)
+
     sheets = {
         SHEETS["report"]: report,
-        SHEETS["co2_history"]: _sort_if_possible(co2_history, ["Data"], ascending=False),
-        SHEETS["co2_7d"]: _last_days(co2_history, "Data", 7),
-        SHEETS["co2_30d"]: _last_days(co2_history, "Data", 30),
-        SHEETS["energy_base"]: _sort_if_possible(energy_history, ["Data_Raportu"], ascending=False),
-        SHEETS["power_spot"]: _sort_spot_history(power_spot_history),
-        SHEETS["power_spot_day"]: _latest_spot_day_rows(power_spot_history),
-        SHEETS["power_spot_7d"]: _sort_spot_history(_last_days(power_spot_history, "Data_Dostawy", 7)),
-        SHEETS["power_spot_30d"]: _sort_spot_history(_last_days(power_spot_history, "Data_Dostawy", 30)),
-        SHEETS["gas_history"]: _sort_if_possible(gas_history, ["Data_Raportu"], ascending=False),
-        SHEETS["gas_7d"]: _last_days(gas_history, "Data_Raportu", 7),
-        SHEETS["gas_30d"]: _last_days(gas_history, "Data_Raportu", 30),
+        SHEETS["co2"]: _sort_if_possible(
+            _from_calendar_month(co2_history, "Data"), ["Data"], ascending=False
+        ),
+        SHEETS["energy_base"]: _sort_if_possible(
+            _from_calendar_month(energy_history, "Data_Raportu"), ["Data_Raportu"], ascending=False
+        ),
+        SHEETS["power_spot"]: spot_range,
+        SHEETS["power_spot_avg"]: spot_avg,
+        SHEETS["gas"]: _sort_if_possible(
+            _from_calendar_month(gas_history, "Data_Raportu"), ["Data_Raportu"], ascending=False
+        ),
     }
 
     _write_excel(output_path, sheets)
@@ -626,15 +659,16 @@ def get_summary(output_path: Path) -> str:
     try:
         sheets = _read_existing_sheets(output_path)
         report = sheets.get(SHEETS["report"], pd.DataFrame())
-        co2_7d = sheets.get(SHEETS["co2_7d"], pd.DataFrame())
-        co2_30d = sheets.get(SHEETS["co2_30d"], pd.DataFrame())
-        spot_day = sheets.get(SHEETS["power_spot_day"], pd.DataFrame())
-        spot_30d = sheets.get(SHEETS["power_spot_30d"], pd.DataFrame())
-        gas_7d = sheets.get(SHEETS["gas_7d"], pd.DataFrame())
-        gas_30d = sheets.get(SHEETS["gas_30d"], pd.DataFrame())
+        co2 = sheets.get(SHEETS["co2"], pd.DataFrame())
+        energy_base = sheets.get(SHEETS["energy_base"], pd.DataFrame())
+        spot = sheets.get(SHEETS["power_spot"], pd.DataFrame())
+        spot_avg = sheets.get(SHEETS["power_spot_avg"], pd.DataFrame())
+        gas = sheets.get(SHEETS["gas"], pd.DataFrame())
 
+        cutoff = _calendar_month_cutoff()
         lines = [f"Plik: {output_path.name}"]
         lines.append("Arkusze: " + ", ".join(SHEETS.values()))
+        lines.append(f"Zakres dat: od {cutoff.strftime('%d.%m.%Y')} do dzis")
 
         if not report.empty:
             energy_rows = report[report["Sekcja"] == "Energia BASE"]
@@ -655,16 +689,16 @@ def get_summary(output_path: Path) -> str:
             if not spot_current.empty:
                 row = spot_current.iloc[0]
                 lines.append(
-                    f"Spot energia: {_format_value(row['Wartosc'])} {row['Jednostka']} ({row['Data']}, godzin: {len(spot_day)})"
+                    f"Spot energia: {_format_value(row['Wartosc'])} {row['Jednostka']} ({row['Data']}, godzin: {len(spot)})"
                 )
 
             if not gas_current.empty:
                 row = gas_current.iloc[0]
                 lines.append(f"Gaz: {_format_value(row['Wartosc'])} {row['Jednostka']} ({row['Data']})")
 
-        lines.append(f"CO2 7D: {len(co2_7d)} rekordow | CO2 30D: {len(co2_30d)} rekordow")
-        lines.append(f"SPOT 30D: {len(spot_30d)} rekordow godzinowych | SPOT dzien: {len(spot_day)} rekordow")
-        lines.append(f"Gaz 7D: {len(gas_7d)} rekordow | Gaz 30D: {len(gas_30d)} rekordow")
+        lines.append(f"CO2: {len(co2)} rekordow | Energia BASE: {len(energy_base)} rekordow")
+        lines.append(f"Spot (godzinowe): {len(spot)} rekordow | Spot (srednie dzienne): {len(spot_avg)} rekordow")
+        lines.append(f"Gaz: {len(gas)} rekordow")
         return "\n".join(lines)
     except Exception as exc:
         return f"Blad odczytu raportu: {exc}"

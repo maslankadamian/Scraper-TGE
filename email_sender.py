@@ -14,49 +14,142 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
 
+import pandas as pd
+
 logger = logging.getLogger(__name__)
 
 PLACEHOLDER_RECIPIENT_DOMAINS = {"example.com", "example.org", "example.net", "localhost"}
 
+_SECTION_COLORS = {
+    "CO2": "#2E7D32",
+    "Energia BASE": "#1565C0",
+    "Spot energia": "#E65100",
+    "Gaz": "#6A1B9A",
+}
+_SECTION_ICONS = {
+    "CO2": "&#127807;",
+    "Energia BASE": "&#9889;",
+    "Spot energia": "&#128200;",
+    "Gaz": "&#128293;",
+}
+_SECTION_ORDER = ["CO2", "Energia BASE", "Spot energia", "Gaz"]
 
-def _build_html_body(summary: str, fetch_time: datetime) -> str:
-    """Build the HTML body for the outgoing message."""
+
+def _fmt(value: object) -> str:
+    if value is None:
+        return "brak"
+    if isinstance(value, float):
+        if pd.isna(value):
+            return "brak"
+        return f"{value:.2f}"
+    if isinstance(value, int):
+        return str(value)
+    return str(value)
+
+
+def _build_section_card(section: str, rows: pd.DataFrame) -> str:
+    color = _SECTION_COLORS.get(section, "#333")
+    icon = _SECTION_ICONS.get(section, "")
+    row_html = ""
+    for _, r in rows.iterrows():
+        metryka = r.get("Metryka", "")
+        wartosc = _fmt(r.get("Wartosc"))
+        jednostka = r.get("Jednostka", "")
+        data = r.get("Data", "")
+        row_html += (
+            f"<tr>"
+            f"<td style='padding:7px 14px;border-bottom:1px solid #f0f0f0;color:#444;"
+            f"font-size:13px;'>{metryka}</td>"
+            f"<td style='padding:7px 14px;border-bottom:1px solid #f0f0f0;text-align:right;"
+            f"font-weight:bold;color:#111;font-size:13px;'>{wartosc}"
+            f"<span style='color:#999;font-size:11px;margin-left:4px;'>{jednostka}</span></td>"
+            f"<td style='padding:7px 14px;border-bottom:1px solid #f0f0f0;text-align:right;"
+            f"color:#999;font-size:11px;'>{data}</td>"
+            f"</tr>"
+        )
+    return (
+        f"<div style='margin-bottom:18px;border-radius:8px;overflow:hidden;"
+        f"box-shadow:0 1px 4px rgba(0,0,0,.1);'>"
+        f"<div style='background:{color};padding:10px 16px;'>"
+        f"<span style='color:#fff;font-size:15px;font-weight:bold;'>"
+        f"{icon}&nbsp; {section}</span></div>"
+        f"<table style='width:100%;border-collapse:collapse;background:#fff;'>"
+        f"<thead><tr style='background:#f7f7f7;'>"
+        f"<th style='padding:5px 14px;text-align:left;font-size:11px;color:#888;"
+        f"border-bottom:2px solid #eee;font-weight:600;'>Metryka</th>"
+        f"<th style='padding:5px 14px;text-align:right;font-size:11px;color:#888;"
+        f"border-bottom:2px solid #eee;font-weight:600;'>Warto&#347;&#263;</th>"
+        f"<th style='padding:5px 14px;text-align:right;font-size:11px;color:#888;"
+        f"border-bottom:2px solid #eee;font-weight:600;'>Data</th>"
+        f"</tr></thead>"
+        f"<tbody>{row_html}</tbody>"
+        f"</table></div>"
+    )
+
+
+def _build_html_body(report_df: pd.DataFrame, fetch_time: datetime) -> str:
     date_str = fetch_time.strftime("%d.%m.%Y %H:%M")
-    rows = ""
-    for line in summary.splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        if line.startswith("-"):
-            rows += f"<tr><td style='padding:4px 12px;color:#555;'>{line[1:].strip()}</td></tr>\n"
-        else:
-            rows += (
-                f"<tr><td style='padding:6px 12px;font-weight:bold;"
-                f"background:#EEF4FB;'>{line}</td></tr>\n"
-            )
 
-    return f"""
-<!DOCTYPE html>
+    cards_html = ""
+    if not report_df.empty:
+        for section in _SECTION_ORDER:
+            section_rows = report_df[report_df["Sekcja"] == section]
+            if not section_rows.empty:
+                cards_html += _build_section_card(section, section_rows)
+    else:
+        cards_html = "<p style='color:#888;'>Brak danych w raporcie.</p>"
+
+    return f"""<!DOCTYPE html>
 <html lang="pl">
 <head><meta charset="UTF-8"></head>
-<body style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:auto;">
-  <div style="background:#1F4E79;padding:16px 24px;border-radius:4px 4px 0 0;">
-    <h2 style="color:#fff;margin:0;">TGE - Raport danych gieldowych</h2>
-    <p style="color:#BDD7EE;margin:4px 0 0;">Data pobrania: {date_str}</p>
-  </div>
-  <div style="border:1px solid #ddd;border-top:none;padding:16px 24px;">
-    <p>W zalaczniku znajdziesz plik Excel z aktualnymi danymi rynkowymi i historia.</p>
-    <h3 style="color:#1F4E79;">Podsumowanie zawartosci pliku:</h3>
-    <table style="border-collapse:collapse;width:100%;">
-      {rows}
-    </table>
-    <p style="margin-top:16px;font-size:12px;color:#888;">
-      Wiadomosc wygenerowana automatycznie przez TGE Data Scraper.
-    </p>
-  </div>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,Helvetica,sans-serif;color:#333;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;">
+    <tr><td align="center" style="padding:24px 12px;">
+      <table width="620" cellpadding="0" cellspacing="0"
+             style="max-width:620px;width:100%;border-radius:10px;overflow:hidden;
+                    box-shadow:0 2px 12px rgba(0,0,0,.12);">
+
+        <!-- Nagłówek -->
+        <tr>
+          <td style="background:#1F4E79;padding:22px 28px;">
+            <div style="color:#fff;font-size:20px;font-weight:bold;margin-bottom:4px;">
+              TGE &#8212; Raport danych gie&#322;dowych
+            </div>
+            <div style="color:#BDD7EE;font-size:13px;">
+              Data pobrania: {date_str}
+            </div>
+          </td>
+        </tr>
+
+        <!-- Dashboard -->
+        <tr>
+          <td style="background:#f0f4f8;padding:20px 16px;">
+            {cards_html}
+            <p style="font-size:11px;color:#bbb;text-align:center;margin-top:20px;margin-bottom:0;">
+              Wiadomo&#347;&#263; wygenerowana automatycznie przez TGE Data Scraper.
+              Pe&#322;ne dane historyczne w za&#322;&#261;czniku Excel.
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
 </body>
-</html>
-"""
+</html>"""
+
+
+def _read_report_df(excel_path: Path) -> pd.DataFrame:
+    try:
+        xf = pd.ExcelFile(str(excel_path), engine="openpyxl")
+        if "Raport_dzienny" in xf.sheet_names:
+            df = xf.parse("Raport_dzienny")
+            xf.close()
+            return df
+        xf.close()
+    except Exception as exc:
+        logger.warning("Nie udalo sie odczytac Raport_dzienny z %s: %s", excel_path, exc)
+    return pd.DataFrame()
 
 
 def _clean_text(value: object) -> str:
@@ -120,12 +213,14 @@ def send_report(
     if skipped_recipients:
         logger.warning("Pomijam placeholdery odbiorcow: %s", ", ".join(skipped_recipients))
 
+    report_df = _read_report_df(excel_path)
+
     msg = MIMEMultipart("mixed")
     msg["Subject"] = f"{subject} - {fetch_time.strftime('%d.%m.%Y')}"
     msg["From"] = sender
     msg["To"] = ", ".join(recipients)
 
-    html_body = _build_html_body(summary, fetch_time)
+    html_body = _build_html_body(report_df, fetch_time)
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
     if attach_excel and excel_path.exists():
