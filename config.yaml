@@ -3,19 +3,19 @@
 # ============================================================
 
 email:
-  smtp_server: smtp.gmail.com
+  smtp_server: smtp.office365.com
   smtp_port: 587
-  sender_email: twoj_email@gmail.com
-  sender_password: twoje_haslo_aplikacji
+  sender_email: test.naster@naster.pl
+  sender_password: L*776283908770uw
   recipients:
-    - odbiorca1@example.com
+    - damian.maslanka@naster.pl
     - odbiorca2@example.com
   subject: "TGE - Codzienny raport rynkowy"
   attach_excel: true
 
 schedule:
   frequency: daily
-  time: "14:00"
+  time: "10:00"
   day: monday
 
 scraping:

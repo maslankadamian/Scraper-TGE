@@ -431,10 +431,10 @@ def api_send_email():
     with _state["lock"]:
         summary = _state["last_summary"] or get_summary(ep)
 
-    ok = send_report(ep, summary, _config, fetch_time=datetime.now())
+    ok, error_message = send_report(ep, summary, _config, fetch_time=datetime.now())
     if ok:
         return jsonify({"ok": True})
-    return jsonify({"ok": False, "error": "Sprawdź logi i konfigurację SMTP."})
+    return jsonify({"ok": False, "error": error_message})
 
 
 # ── Start ─────────────────────────────────────────────────────────────────────

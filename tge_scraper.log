@@ -1142,3 +1142,1132 @@ Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
 2026-03-13 12:12:25 [INFO] main: Cykl zakonczony w 104.3 s.
 2026-03-13 12:12:25 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 12:12:25] "GET /api/status HTTP/1.1" 200 -
 2026-03-13 12:12:29 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 12:12:29] "GET /api/download HTTP/1.1" 200 -
+2026-03-13 12:48:26 [INFO] email_sender: Wysyłam e-mail przez smtp.gmail.com:587 do: odbiorca1@example.com, odbiorca2@example.com
+2026-03-13 12:48:26 [ERROR] email_sender: Błąd uwierzytelnienia SMTP. Sprawdź sender_email i sender_password. Dla Gmail użyj App Password: https://myaccount.google.com/apppasswords
+2026-03-13 12:48:26 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 12:48:26] "POST /api/send-email HTTP/1.1" 200 -
+2026-03-13 13:02:22 [INFO] __main__: Zaladowano konfiguracje z: config.yaml
+2026-03-13 13:02:22 [INFO] __main__: Tryb CLI. Uruchamiam jednorazowe pobranie.
+2026-03-13 13:02:22 [INFO] __main__: ============================================================
+2026-03-13 13:02:22 [INFO] __main__: Start cyklu: 2026-03-13 13:02:22
+2026-03-13 13:02:22 [INFO] __main__: ============================================================
+2026-03-13 13:02:24 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350442 bytes)
+2026-03-13 13:02:25 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-13 13:02:27 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-02-2026 (350368 bytes)
+2026-03-13 13:02:29 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-02-2026 (350340 bytes)
+2026-03-13 13:02:31 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-02-2026 (50638 bytes)
+2026-03-13 13:02:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-02-2026 (50638 bytes)
+2026-03-13 13:02:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-02-2026 (350224 bytes)
+2026-03-13 13:02:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-13 13:02:50 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-13 13:02:50 [INFO] main: Harmonogram: codziennie o 14:00
+2026-03-13 13:02:50 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-13 13:02:50 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-13 13:02:50 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-13 13:02:50 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-13 13:02:56 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 13:02:56] "GET / HTTP/1.1" 200 -
+2026-03-13 13:02:59 [INFO] email_sender: Wysyłam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl, odbiorca2@example.com
+2026-03-13 13:03:06 [ERROR] email_sender: Błąd uwierzytelnienia SMTP. Sprawdź sender_email i sender_password. Dla Gmail użyj App Password: https://myaccount.google.com/apppasswords
+2026-03-13 13:03:06 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 13:03:06] "POST /api/send-email HTTP/1.1" 200 -
+2026-03-13 13:10:37 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-13 13:10:37 [INFO] main: Harmonogram: codziennie o 14:00
+2026-03-13 13:10:37 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-13 13:10:37 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-13 13:10:37 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-13 13:10:37 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-13 13:10:47 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 13:10:47] "GET / HTTP/1.1" 200 -
+2026-03-13 13:10:49 [WARNING] email_sender: Pomijam placeholdery odbiorcow: odbiorca2@example.com
+2026-03-13 13:10:49 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
+2026-03-13 13:10:55 [ERROR] email_sender: Blad uwierzytelnienia SMTP (535): 5.7.139 Authentication unsuccessful, the user credentials were incorrect. [BE1P281CA0321.DEUP281.PROD.OUTLOOK.COM 2026-03-13T12:10:55.408Z 08DE80BB9AF08B39]
+2026-03-13 13:10:55 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 13:10:55] "POST /api/send-email HTTP/1.1" 200 -
+2026-03-13 13:46:30 [INFO] werkzeug: 127.0.0.1 - - [13/Mar/2026 13:46:30] "GET / HTTP/1.1" 200 -
+2026-03-13 14:00:07 [INFO] main: ============================================================
+2026-03-13 14:00:07 [INFO] main: Start cyklu: 2026-03-13 14:00:07
+2026-03-13 14:00:07 [INFO] main: ============================================================
+2026-03-13 14:00:09 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350506 bytes)
+2026-03-13 14:00:10 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-02-2026 (350368 bytes)
+2026-03-13 14:00:20 [ERROR] scraper: Dataset 'energy_base_history' failed: ('Connection aborted.', ConnectionResetError(10054, 'Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta', None, 10054, None))
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...<14 lines>...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...<8 lines>...
+        tls_in_tls=tls_in_tls,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 483, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 527, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [WinError 10054] Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\retry.py", line 490, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...<14 lines>...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...<8 lines>...
+        tls_in_tls=tls_in_tls,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 483, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 527, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 537, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 558, in <lambda>
+    lambda: _build_energy_base_frame(sources["energy_base"], fetch_time),
+            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 315, in _build_energy_base_frame
+    dated_url, tables = _get_tables_for_date(source_url, session_date, table_cache)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 114, in _get_tables_for_date
+    table_cache[dated_url] = _read_tables_from_html(_fetch_html(dated_url))
+                                                    ~~~~~~~~~~~^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 82, in _fetch_html
+    response = requests.get(url, headers=REQUEST_HEADERS, timeout=timeout)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\adapters.py", line 659, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta', None, 10054, None))
+2026-03-13 14:00:28 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-13 14:00:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-02-2026 (71231 bytes)
+2026-03-13 14:00:39 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-02-2026 (71231 bytes)
+2026-03-13 14:00:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-02-2026 (70564 bytes)
+2026-03-13 14:00:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-02-2026 (70566 bytes)
+2026-03-13 14:00:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-02-2026 (70565 bytes)
+2026-03-13 14:00:45 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-13 14:00:47 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-13 14:00:49 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-13 14:00:51 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-13 14:00:52 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-13 14:00:54 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-13 14:00:55 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-13 14:00:58 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-13 14:01:00 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-13 14:01:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-13 14:01:03 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-13 14:01:04 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-13 14:01:06 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-13 14:01:08 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-13 14:01:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-13 14:01:11 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-13 14:01:13 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-13 14:01:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-13 14:01:16 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-13 14:01:25 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-13 14:01:26 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-13 14:01:28 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-13 14:01:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-13 14:01:31 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-13 14:01:42 [ERROR] scraper: Dataset 'gas_spot_history' failed: ('Connection aborted.', ConnectionResetError(10054, 'Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta', None, 10054, None))
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...<14 lines>...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...<8 lines>...
+        tls_in_tls=tls_in_tls,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 483, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 527, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [WinError 10054] Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\retry.py", line 490, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...<14 lines>...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\connection.py", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...<8 lines>...
+        tls_in_tls=tls_in_tls,
+    )
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 483, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Testy Claude\venv\Lib\site-packages\urllib3\util\ssl_.py", line 527, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Damian Maślanka\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 537, in _safe_dataset
+    return loader()
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 566, in <lambda>
+    lambda: _build_gas_index_frame(
+            ~~~~~~~~~~~~~~~~~~~~~~^
+        source_url=sources["gas_spot"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        value_prefix="Gaz",
+        ^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 382, in _build_gas_index_frame
+    dated_url, tables = _get_tables_for_date(source_url, session_date, table_cache)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 114, in _get_tables_for_date
+    table_cache[dated_url] = _read_tables_from_html(_fetch_html(dated_url))
+                                                    ~~~~~~~~~~~^^^^^^^^^^^
+  File "c:\Testy Claude\Scraper TGE\scraper.py", line 82, in _fetch_html
+    response = requests.get(url, headers=REQUEST_HEADERS, timeout=timeout)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Testy Claude\venv\Lib\site-packages\requests\adapters.py", line 659, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta', None, 10054, None))
+2026-03-13 14:01:43 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (886055 bytes)
+2026-03-13 14:01:43 [INFO] scraper: Scraping completed for 4 datasets with 2 non-empty results.
+2026-03-13 14:01:45 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-13 14:01:45 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 64.65 EUR (2026-03-13)
+Energia BASE: 2026: brak, 2027: 435.61, 2028: 412.50
+Spot energia: 349.41 PLN/MWh (2026-03-13, godzin: 24)
+Gaz: 217.90 PLN/MWh (2026-03-13)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-13 14:01:45 [INFO] main: Cykl zakonczony w 97.9 s.
+2026-03-16 09:47:15 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-16 09:47:15 [INFO] main: Harmonogram: codziennie o 10:00
+2026-03-16 09:47:15 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-16 09:47:15 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-16 09:47:15 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-16 09:47:15 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-16 09:47:23 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:23] "GET / HTTP/1.1" 200 -
+2026-03-16 09:47:23 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-16 09:47:29 [INFO] main: ============================================================
+2026-03-16 09:47:29 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:29] "POST /api/scrape HTTP/1.1" 200 -
+2026-03-16 09:47:29 [INFO] main: Start cyklu: 2026-03-16 09:47:29
+2026-03-16 09:47:29 [INFO] main: ============================================================
+2026-03-16 09:47:31 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:31] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:31 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350409 bytes)
+2026-03-16 09:47:33 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:33] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-16 09:47:35 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:35] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:35 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-16 09:47:37 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:37] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:37 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-16 09:47:39 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:39] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:39 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-02-2026 (50638 bytes)
+2026-03-16 09:47:41 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-02-2026 (350224 bytes)
+2026-03-16 09:47:41 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:41] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:43 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:43] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-16 09:47:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-16 09:47:45 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:45] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:47 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-16 09:47:47 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:47] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:48 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-16 09:47:49 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:49] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:50 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-16 09:47:51 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:51] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:51 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-16 09:47:53 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-16 09:47:53 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:53] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:55 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-16 09:47:55 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:55] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:56 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-16 09:47:57 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:57] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-16 09:47:59 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:47:59] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:47:59 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-16 09:48:01 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-16 09:48:01 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:01] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-16 09:48:03 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:03] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:05 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:05] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:06 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-16 09:48:07 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:07] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:07 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-16 09:48:09 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-16 09:48:09 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:09] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:11 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-16 09:48:11 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:11] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:12 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-16 09:48:13 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:13] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:14 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-16 09:48:15 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:15] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:15 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-16 09:48:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-16 09:48:17 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:17] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-16 09:48:19 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:19] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-16 09:48:21 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-16 09:48:21 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:21] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:23 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:23] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:25 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:25] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:27 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:27] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:27 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-16 09:48:29 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-02-2026 (70566 bytes)
+2026-03-16 09:48:29 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:29] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:31 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-02-2026 (70565 bytes)
+2026-03-16 09:48:31 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:31] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:33 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-16 09:48:33 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:33] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:35 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:35] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:35 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-16 09:48:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-16 09:48:37 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:37] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-16 09:48:39 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:39] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-16 09:48:41 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-16 09:48:41 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:41] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:43 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-16 09:48:43 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:43] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-16 09:48:45 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:45] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:46 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-16 09:48:47 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:47] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:47 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-16 09:48:49 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-16 09:48:49 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:49] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:50 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-16 09:48:51 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:51] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:52 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-16 09:48:53 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:53] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:53 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-16 09:48:55 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:55] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:55 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-16 09:48:56 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-16 09:48:57 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:57] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:48:59 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:48:59] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:01 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:01] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-16 09:49:03 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:03] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:05 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:05] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-16 09:49:07 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:07] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:09 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:09] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-16 09:49:11 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:11] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:11 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-16 09:49:13 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-16 09:49:13 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:13] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-16 09:49:15 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:15] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:16 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-16 09:49:17 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-16 09:49:17 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:17] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:19 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-16 09:49:19 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:19] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:20 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-16 09:49:21 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:21] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-16 09:49:23 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:23] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:23 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70559 bytes)
+2026-03-16 09:49:24 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (893178 bytes)
+2026-03-16 09:49:24 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-16 09:49:25 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:25] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:26 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-16 09:49:27 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 65.47 EUR (2026-03-16)
+Energia BASE: 2026: brak, 2027: 430.00, 2028: 409.25
+Spot energia: 520.01 PLN/MWh (2026-03-16, godzin: 24)
+Gaz: 226.23 PLN/MWh (2026-03-16)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-16 09:49:27 [INFO] main: Cykl zakonczony w 117.8 s.
+2026-03-16 09:49:27 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:27] "GET /api/status HTTP/1.1" 200 -
+2026-03-16 09:49:48 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:49:48] "GET /api/download HTTP/1.1" 200 -
+2026-03-16 09:52:14 [WARNING] email_sender: Pomijam placeholdery odbiorcow: odbiorca2@example.com
+2026-03-16 09:52:14 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
+2026-03-16 09:52:17 [INFO] email_sender: E-mail wyslany pomyslnie do 1 odbiorcow.
+2026-03-16 09:52:17 [INFO] werkzeug: 127.0.0.1 - - [16/Mar/2026 09:52:17] "POST /api/send-email HTTP/1.1" 200 -
+2026-03-16 10:00:15 [INFO] main: ============================================================
+2026-03-16 10:00:15 [INFO] main: Start cyklu: 2026-03-16 10:00:15
+2026-03-16 10:00:15 [INFO] main: ============================================================
+2026-03-16 10:00:17 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350414 bytes)
+2026-03-16 10:00:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-02-2026 (50638 bytes)
+2026-03-16 10:00:20 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-02-2026 (350224 bytes)
+2026-03-16 10:00:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-16 10:00:23 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-16 10:00:25 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-16 10:00:27 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-16 10:00:28 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-16 10:00:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-16 10:00:32 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-16 10:00:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-16 10:00:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-16 10:00:38 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-16 10:00:39 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-16 10:00:41 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-16 10:00:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-16 10:00:44 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-16 10:00:46 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-16 10:00:48 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-16 10:00:49 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-16 10:00:51 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-16 10:00:53 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-16 10:00:54 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-16 10:00:55 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-16 10:00:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-16 10:00:59 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-16 10:01:01 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-16 10:01:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-16 10:01:05 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-16 10:01:06 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-16 10:01:16 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-16 10:01:18 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-02-2026 (70566 bytes)
+2026-03-16 10:01:19 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-02-2026 (70565 bytes)
+2026-03-16 10:01:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-16 10:01:22 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-16 10:01:24 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-16 10:01:26 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-16 10:01:27 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-16 10:01:29 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-16 10:01:31 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-16 10:01:33 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-16 10:01:35 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-16 10:01:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-16 10:01:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-16 10:01:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-16 10:01:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-16 10:01:43 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-16 10:01:45 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-16 10:01:47 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-16 10:01:48 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-16 10:01:50 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-16 10:01:51 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-16 10:01:53 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-16 10:01:55 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-16 10:01:56 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-16 10:01:58 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-16 10:01:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-16 10:02:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-16 10:02:03 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-16 10:02:05 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-16 10:02:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70559 bytes)
+2026-03-16 10:02:08 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (893721 bytes)
+2026-03-16 10:02:09 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-16 10:02:11 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-16 10:02:11 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 65.47 EUR (2026-03-16)
+Energia BASE: 2026: brak, 2027: brak, 2028: 408.00
+Spot energia: 520.01 PLN/MWh (2026-03-16, godzin: 24)
+Gaz: 226.23 PLN/MWh (2026-03-16)
+CO2 7D: 5 rekordow | CO2 30D: 21 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-16 10:02:11 [INFO] main: Cykl zakonczony w 116.6 s.
+2026-03-17 09:34:44 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-17 09:34:44 [INFO] main: Harmonogram: codziennie o 10:00
+2026-03-17 09:34:44 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-17 09:34:44 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-17 09:34:44 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-17 09:34:44 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-17 09:35:45 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-17 09:35:45 [INFO] main: Harmonogram: codziennie o 10:00
+2026-03-17 09:35:45 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-17 09:35:45 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-17 09:35:45 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-17 09:35:45 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-17 09:35:50 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:35:50] "GET / HTTP/1.1" 200 -
+2026-03-17 09:35:50 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:35:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-17 09:35:56 [INFO] main: ============================================================
+2026-03-17 09:35:56 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:35:56] "POST /api/scrape HTTP/1.1" 200 -
+2026-03-17 09:35:56 [INFO] main: Start cyklu: 2026-03-17 09:35:56
+2026-03-17 09:35:56 [INFO] main: ============================================================
+2026-03-17 09:35:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (350414 bytes)
+2026-03-17 09:35:58 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:35:58] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:35:59 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350068 bytes)
+2026-03-17 09:36:00 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:00] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:01 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-02-2026 (350224 bytes)
+2026-03-17 09:36:02 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:02] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-17 09:36:04 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:04] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:04 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-17 09:36:06 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-17 09:36:06 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:06] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:07 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-17 09:36:08 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:08] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:09 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-17 09:36:10 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:10] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:10 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-17 09:36:12 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-17 09:36:12 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:12] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:13 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-17 09:36:14 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:14] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:15 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-17 09:36:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-17 09:36:16 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:16] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-17 09:36:18 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:18] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-17 09:36:20 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:20] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:21 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-17 09:36:22 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:22] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-17 09:36:24 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-17 09:36:24 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:24] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:26 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:26] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:26 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-17 09:36:28 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-17 09:36:28 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:28] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-17 09:36:30 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:30] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:32 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-17 09:36:32 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:32] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-17 09:36:34 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:34] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:35 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-17 09:36:36 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:36] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:37 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-17 09:36:38 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:38] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:39 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-17 09:36:40 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:40] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-17 09:36:42 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:42] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:42 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-17 09:36:44 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-17 09:36:44 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:44] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-17 09:36:46 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:46] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:48 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:48] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:50 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:50] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:52 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:52] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:53 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-17 09:36:54 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:54] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:55 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-02-2026 (70565 bytes)
+2026-03-17 09:36:56 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:56] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:57 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-17 09:36:58 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:36:58] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:36:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-17 09:37:00 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-17 09:37:00 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:37:00] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:37:02 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-17 09:37:04 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-17 09:37:05 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-17 09:37:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-17 09:37:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-17 09:37:11 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-17 09:37:11 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:37:11] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:37:13 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-17 09:37:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-17 09:37:16 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-17 09:37:18 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-17 09:37:20 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-17 09:37:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-17 09:37:23 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-17 09:37:25 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-17 09:37:27 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-17 09:37:29 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-17 09:37:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-17 09:37:32 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-17 09:37:33 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-17 09:37:35 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-17 09:37:36 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-17 09:37:39 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-17 09:37:41 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-17 09:37:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-17 09:37:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-17 09:37:45 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-17 09:37:47 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (882527 bytes)
+2026-03-17 09:37:47 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-17 09:37:49 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-17 09:37:49 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.22 EUR (2026-03-17)
+Energia BASE: 2026: brak, 2027: 431.21, 2028: 408.01
+Spot energia: 560.22 PLN/MWh (2026-03-17, godzin: 24)
+Gaz: 222.71 PLN/MWh (2026-03-17)
+CO2 7D: 5 rekordow | CO2 30D: 22 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-17 09:37:49 [INFO] main: Cykl zakonczony w 113.8 s.
+2026-03-17 09:37:54 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:37:54] "GET /api/status HTTP/1.1" 200 -
+2026-03-17 09:38:00 [WARNING] email_sender: Pomijam placeholdery odbiorcow: odbiorca2@example.com
+2026-03-17 09:38:00 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
+2026-03-17 09:38:03 [INFO] email_sender: E-mail wyslany pomyslnie do 1 odbiorcow.
+2026-03-17 09:38:03 [INFO] werkzeug: 127.0.0.1 - - [17/Mar/2026 09:38:03] "POST /api/send-email HTTP/1.1" 200 -
+2026-03-17 10:00:14 [INFO] main: ============================================================
+2026-03-17 10:00:14 [INFO] main: Start cyklu: 2026-03-17 10:00:14
+2026-03-17 10:00:14 [INFO] main: ============================================================
+2026-03-17 10:00:15 [INFO] main: ============================================================
+2026-03-17 10:00:15 [INFO] main: Start cyklu: 2026-03-17 10:00:15
+2026-03-17 10:00:15 [INFO] main: ============================================================
+2026-03-17 10:00:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (350419 bytes)
+2026-03-17 10:00:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (350419 bytes)
+2026-03-17 10:00:17 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350068 bytes)
+2026-03-17 10:00:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350068 bytes)
+2026-03-17 10:00:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-02-2026 (350224 bytes)
+2026-03-17 10:00:20 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-02-2026 (350224 bytes)
+2026-03-17 10:00:21 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-17 10:00:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-17 10:00:23 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-17 10:00:23 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-17 10:00:25 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-17 10:00:27 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-17 10:00:28 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-17 10:00:29 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-17 10:00:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-17 10:00:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-17 10:00:32 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-17 10:00:32 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-17 10:00:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-17 10:00:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-17 10:00:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-17 10:00:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-17 10:00:38 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-17 10:00:38 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-17 10:00:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-17 10:00:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-17 10:00:41 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-17 10:00:42 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-17 10:00:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-17 10:00:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-17 10:00:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-17 10:00:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-17 10:00:46 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-17 10:00:47 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-17 10:00:48 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-17 10:00:49 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-17 10:00:50 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-17 10:00:50 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-17 10:00:52 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-17 10:00:52 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-17 10:00:53 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-17 10:00:54 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-17 10:00:55 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-17 10:00:55 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-17 10:00:56 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-17 10:00:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-17 10:00:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-17 10:00:59 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-17 10:00:59 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-17 10:01:00 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-17 10:01:01 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-17 10:01:02 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-17 10:01:02 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-17 10:01:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-17 10:01:04 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-17 10:01:05 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-17 10:01:05 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-17 10:01:07 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-17 10:01:08 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-17 10:01:10 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-17 10:01:15 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-17 10:01:17 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-02-2026 (70565 bytes)
+2026-03-17 10:01:18 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-17 10:01:19 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-17 10:01:20 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-17 10:01:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-02-2026 (70565 bytes)
+2026-03-17 10:01:22 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-17 10:01:22 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-17 10:01:24 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-17 10:01:24 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-17 10:01:25 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-17 10:01:26 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-17 10:01:28 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-17 10:01:28 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-17 10:01:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-17 10:01:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-17 10:01:32 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-17 10:01:32 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-17 10:01:34 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-17 10:01:34 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-17 10:01:36 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-17 10:01:36 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-17 10:01:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-17 10:01:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-17 10:01:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-17 10:01:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-17 10:01:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-17 10:01:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-17 10:01:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-17 10:01:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-17 10:01:46 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-17 10:01:46 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-17 10:01:48 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-17 10:01:48 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-17 10:01:50 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-17 10:01:50 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-17 10:01:51 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-17 10:01:52 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-17 10:01:53 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-17 10:01:54 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-17 10:01:54 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-17 10:01:55 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-17 10:01:56 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-17 10:01:57 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-17 10:01:57 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-17 10:01:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-17 10:01:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-17 10:02:00 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-17 10:02:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-17 10:02:02 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-17 10:02:03 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-17 10:02:04 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-17 10:02:05 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-17 10:02:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-17 10:02:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-17 10:02:08 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-17 10:02:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-17 10:02:10 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-17 10:02:11 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-17 10:02:12 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-17 10:02:13 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (892825 bytes)
+2026-03-17 10:02:13 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-17 10:02:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-17 10:02:15 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-17 10:02:16 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 62.96 EUR (2026-03-17)
+Energia BASE: 2026: brak, 2027: 431.21, 2028: 408.01
+Spot energia: 560.22 PLN/MWh (2026-03-17, godzin: 24)
+Gaz: 222.71 PLN/MWh (2026-03-17)
+CO2 7D: 5 rekordow | CO2 30D: 22 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-17 10:02:16 [INFO] main: Cykl zakonczony w 121.7 s.
+2026-03-17 10:02:16 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-17 10:02:17 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (892829 bytes)
+2026-03-17 10:02:17 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-17 10:02:19 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-17 10:02:19 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 62.96 EUR (2026-03-17)
+Energia BASE: 2026: brak, 2027: 431.21, 2028: 408.01
+Spot energia: 560.22 PLN/MWh (2026-03-17, godzin: 24)
+Gaz: 222.71 PLN/MWh (2026-03-17)
+CO2 7D: 5 rekordow | CO2 30D: 22 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-17 10:02:19 [INFO] main: Cykl zakonczony w 124.6 s.
+2026-03-18 09:51:11 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-18 09:51:11 [INFO] main: Harmonogram: codziennie o 10:00
+2026-03-18 09:51:11 [INFO] __main__: Harmonogram uruchomiony w tle.
+2026-03-18 09:51:11 [INFO] __main__: Otwórz przeglądarkę: http://127.0.0.1:5000
+2026-03-18 09:51:11 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-18 09:51:11 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-18 09:51:17 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:51:17] "GET / HTTP/1.1" 200 -
+2026-03-18 09:51:17 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:51:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-18 10:00:11 [INFO] main: ============================================================
+2026-03-18 10:00:11 [INFO] main: Start cyklu: 2026-03-18 10:00:11
+2026-03-18 10:00:11 [INFO] main: ============================================================
+2026-03-18 10:00:13 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-03-2026 (350409 bytes)
+2026-03-18 10:00:15 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (350350 bytes)
+2026-03-18 10:00:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-18 10:00:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-18 10:00:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-18 10:00:21 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-18 10:00:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-18 10:00:24 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-18 10:00:25 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-18 10:00:27 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-18 10:00:28 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-18 10:00:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-18 10:00:31 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-18 10:00:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-18 10:00:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-18 10:00:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-18 10:00:37 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-18 10:00:39 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-18 10:00:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-18 10:00:42 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-18 10:00:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-18 10:00:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-18 10:00:46 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-18 10:00:48 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-18 10:00:51 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-18 10:00:52 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-18 10:00:54 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-18 10:00:55 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-18 10:00:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-18 10:00:58 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350068 bytes)
+2026-03-18 10:01:06 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-18 10:01:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-18 10:01:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-18 10:01:11 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-18 10:01:12 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-18 10:01:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-18 10:01:15 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-18 10:01:17 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-18 10:01:19 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-18 10:01:20 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-18 10:01:22 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-18 10:01:23 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-18 10:01:24 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-18 10:01:26 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-18 10:01:28 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-18 10:01:29 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-18 10:01:31 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-18 10:01:32 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-18 10:01:34 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-18 10:01:35 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-18 10:01:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-18 10:01:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-18 10:01:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-18 10:01:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-18 10:01:43 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-18 10:01:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-18 10:01:46 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-18 10:01:47 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-18 10:01:49 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-18 10:01:50 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-18 10:01:52 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-03-2026 (70558 bytes)
+2026-03-18 10:01:54 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (884338 bytes)
+2026-03-18 10:01:54 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-18 10:01:55 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-18 10:01:55 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.30 EUR (2026-03-18)
+Energia BASE: 2026: brak, 2027: 420.00, 2028: 405.00
+Spot energia: 389.02 PLN/MWh (2026-03-18, godzin: 24)
+Gaz: 224.27 PLN/MWh (2026-03-18)
+CO2 7D: 5 rekordow | CO2 30D: 22 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-18 10:01:55 [INFO] main: Cykl zakonczony w 103.9 s.
+2026-03-18 10:08:33 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:08:33] "GET /api/download HTTP/1.1" 200 -
+2026-03-18 10:09:06 [INFO] main: ============================================================
+2026-03-18 10:09:06 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:06] "POST /api/scrape HTTP/1.1" 200 -
+2026-03-18 10:09:06 [INFO] main: Start cyklu: 2026-03-18 10:09:06
+2026-03-18 10:09:06 [INFO] main: ============================================================
+2026-03-18 10:09:07 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-03-2026 (350409 bytes)
+2026-03-18 10:09:08 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:08] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:09 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (350350 bytes)
+2026-03-18 10:09:10 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:10] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:10 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-02-2026 (350384 bytes)
+2026-03-18 10:09:12 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:12] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:12 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-02-2026 (350380 bytes)
+2026-03-18 10:09:14 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-02-2026 (350448 bytes)
+2026-03-18 10:09:14 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:14] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:15 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-02-2026 (350398 bytes)
+2026-03-18 10:09:16 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:16] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-02-2026 (50638 bytes)
+2026-03-18 10:09:18 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:18] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-02-2026 (50638 bytes)
+2026-03-18 10:09:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-02-2026 (350326 bytes)
+2026-03-18 10:09:20 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:20] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:21 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-02-2026 (350352 bytes)
+2026-03-18 10:09:22 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:22] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (350316 bytes)
+2026-03-18 10:09:24 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:24] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:24 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (350476 bytes)
+2026-03-18 10:09:25 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (350162 bytes)
+2026-03-18 10:09:26 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:26] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:27 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50638 bytes)
+2026-03-18 10:09:28 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:28] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:28 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50638 bytes)
+2026-03-18 10:09:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (350226 bytes)
+2026-03-18 10:09:30 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:30] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:31 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (350562 bytes)
+2026-03-18 10:09:32 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:32] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (350368 bytes)
+2026-03-18 10:09:34 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:34] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (350268 bytes)
+2026-03-18 10:09:36 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:36] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (350334 bytes)
+2026-03-18 10:09:37 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50638 bytes)
+2026-03-18 10:09:38 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:38] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:39 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50638 bytes)
+2026-03-18 10:09:40 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:40] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:41 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (350254 bytes)
+2026-03-18 10:09:42 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:42] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:42 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (350256 bytes)
+2026-03-18 10:09:44 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:44] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:44 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (350346 bytes)
+2026-03-18 10:09:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (350188 bytes)
+2026-03-18 10:09:46 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:46] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:47 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (350308 bytes)
+2026-03-18 10:09:48 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:48] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:48 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50638 bytes)
+2026-03-18 10:09:49 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50638 bytes)
+2026-03-18 10:09:50 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:50] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:51 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (350068 bytes)
+2026-03-18 10:09:52 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:52] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:54 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:54] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:56 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:56] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:56 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-18 10:09:58 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-02-2026 (70564 bytes)
+2026-03-18 10:09:58 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:09:58] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:09:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-02-2026 (70564 bytes)
+2026-03-18 10:10:00 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:00] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-02-2026 (71223 bytes)
+2026-03-18 10:10:02 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:02] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:03 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-02-2026 (71235 bytes)
+2026-03-18 10:10:04 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:04] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:04 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-02-2026 (70564 bytes)
+2026-03-18 10:10:06 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-02-2026 (70564 bytes)
+2026-03-18 10:10:06 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:06] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:07 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-02-2026 (70562 bytes)
+2026-03-18 10:10:08 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:08] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-02-2026 (70564 bytes)
+2026-03-18 10:10:10 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:10] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:12 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:12] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:12 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-18 10:10:13 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-18 10:10:14 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:14] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:15 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-18 10:10:16 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:16] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:16 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-18 10:10:18 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-18 10:10:18 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:18] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:19 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-18 10:10:20 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:20] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-18 10:10:22 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:22] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:22 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-18 10:10:24 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:24] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:24 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-18 10:10:25 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-18 10:10:26 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:26] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:27 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-18 10:10:28 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:28] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:28 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-18 10:10:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-18 10:10:30 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:30] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:31 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-18 10:10:32 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:32] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:33 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-18 10:10:34 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:34] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:34 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-18 10:10:36 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:36] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:36 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-18 10:10:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-18 10:10:38 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:38] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:39 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-18 10:10:40 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:40] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-18 10:10:42 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:42] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-18 10:10:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-03-2026 (70558 bytes)
+2026-03-18 10:10:44 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:44] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:44 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (893425 bytes)
+2026-03-18 10:10:45 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-18 10:10:46 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:46] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:10:46 [INFO] data_manager: Saved workbook with 12 sheets to tge_dane_historyczne.xlsx
+2026-03-18 10:10:46 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2_historia, CO2_7D, CO2_30D, Energia_BASE_hist, Spot_energia_hist, Spot_energia_dzien, Spot_energia_7D, Spot_energia_30D, Gaz_historia, Gaz_7D, Gaz_30D
+CO2: 63.30 EUR (2026-03-18)
+Energia BASE: 2026: brak, 2027: 420.00, 2028: 405.00
+Spot energia: 389.02 PLN/MWh (2026-03-18, godzin: 24)
+Gaz: 224.27 PLN/MWh (2026-03-18)
+CO2 7D: 5 rekordow | CO2 30D: 22 rekordow
+SPOT 30D: 720 rekordow godzinowych | SPOT dzien: 24 rekordow
+Gaz 7D: 7 rekordow | Gaz 30D: 30 rekordow
+2026-03-18 10:10:46 [INFO] main: Cykl zakonczony w 100.9 s.
+2026-03-18 10:10:48 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:10:48] "GET /api/status HTTP/1.1" 200 -
+2026-03-18 10:23:56 [WARNING] email_sender: Pomijam placeholdery odbiorcow: odbiorca2@example.com
+2026-03-18 10:23:56 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
+2026-03-18 10:23:59 [INFO] email_sender: E-mail wyslany pomyslnie do 1 odbiorcow.
+2026-03-18 10:23:59 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 10:23:59] "POST /api/send-email HTTP/1.1" 200 -
