@@ -4,16 +4,23 @@ Supports SMTP with STARTTLS for Gmail, Outlook, and similar providers.
 """
 from __future__ import annotations
 
+import base64
+import io
 import logging
 import smtplib
 import ssl
 from datetime import datetime, timedelta
 from email import encoders
 from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
 
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -34,6 +41,14 @@ _SECTION_ICONS = {
 }
 _SECTION_ORDER = ["CO2", "Energia BASE", "Spot energia", "Gaz"]
 
+# Metrics to include in the email summary (per section)
+_EMAIL_METRICS = {
+    "CO2": {"Cena biezaca", "Srednia 7D", "Srednia 30D"},
+    "Energia BASE": {"2027", "2028"},
+    "Spot energia": {"Srednia dnia", "Srednia 7D", "Srednia 30D"},
+    "Gaz": {"Cena biezaca", "Srednia 7D", "Srednia 30D"},
+}
+
 
 def _fmt(value: object) -> str:
     if value is None:
@@ -47,71 +62,40 @@ def _fmt(value: object) -> str:
     return str(value)
 
 
-def _build_svg_chart(dates: list[str], values: list[float], color: str, unit: str) -> str:
-    """Build an inline SVG line chart for the last 7 days."""
+def _render_chart_png(
+    dates: list[str], values: list[float], color: str, unit: str, title: str = "",
+) -> bytes | None:
+    """Render a line chart as PNG bytes using matplotlib."""
     if len(values) < 2:
-        return ""
+        return None
 
-    width, height = 560, 140
-    pad_left, pad_right, pad_top, pad_bottom = 60, 20, 20, 35
+    fig, ax = plt.subplots(figsize=(5.6, 1.8), dpi=130)
+    fig.patch.set_facecolor("#fafafa")
+    ax.set_facecolor("#fafafa")
 
-    chart_w = width - pad_left - pad_right
-    chart_h = height - pad_top - pad_bottom
+    ax.plot(dates, values, color=color, linewidth=2, marker="o", markersize=4, zorder=3)
+    ax.fill_between(range(len(values)), values, alpha=0.08, color=color)
+    ax.set_ylabel(unit, fontsize=8, color="#888")
+    ax.tick_params(axis="both", labelsize=7, colors="#888")
+    ax.grid(axis="y", linewidth=0.4, color="#ddd")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_color("#ddd")
+    ax.spines["bottom"].set_color("#ddd")
 
-    v_min = min(values)
-    v_max = max(values)
-    v_range = v_max - v_min if v_max != v_min else 1.0
+    if title:
+        ax.set_title(title, fontsize=9, color="#666", loc="left", pad=4)
 
-    n = len(values)
-    points = []
     for i, v in enumerate(values):
-        x = pad_left + (i / (n - 1)) * chart_w
-        y = pad_top + chart_h - ((v - v_min) / v_range) * chart_h
-        points.append((x, y))
+        ax.annotate(f"{v:.2f}", (i, v), textcoords="offset points",
+                    xytext=(0, 7), ha="center", fontsize=6, color="#555")
 
-    polyline = " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
-
-    # Y-axis labels (3 ticks)
-    y_labels = ""
-    for frac in (0.0, 0.5, 1.0):
-        val = v_min + frac * v_range
-        y_pos = pad_top + chart_h - frac * chart_h
-        y_labels += (
-            f"<text x='{pad_left - 6}' y='{y_pos + 4}' text-anchor='end' "
-            f"font-size='10' fill='#999'>{val:.2f}</text>"
-            f"<line x1='{pad_left}' y1='{y_pos}' x2='{width - pad_right}' y2='{y_pos}' "
-            f"stroke='#eee' stroke-width='1'/>"
-        )
-
-    # X-axis date labels
-    x_labels = ""
-    step = max(1, (n - 1) // min(6, n - 1))
-    for i in range(0, n, step):
-        x_pos = pad_left + (i / (n - 1)) * chart_w
-        label = dates[i][-5:] if len(dates[i]) > 5 else dates[i]
-        x_labels += (
-            f"<text x='{x_pos}' y='{height - 5}' text-anchor='middle' "
-            f"font-size='10' fill='#999'>{label}</text>"
-        )
-
-    # Dots on data points
-    dots = ""
-    for x, y in points:
-        dots += f"<circle cx='{x:.1f}' cy='{y:.1f}' r='3' fill='{color}'/>"
-
-    return (
-        f"<div style='margin:8px 16px 14px 16px;'>"
-        f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {width} {height}' "
-        f"width='{width}' height='{height}' style='max-width:100%;background:#fafafa;"
-        f"border-radius:6px;'>"
-        f"{y_labels}{x_labels}"
-        f"<polyline points='{polyline}' fill='none' stroke='{color}' stroke-width='2.5' "
-        f"stroke-linejoin='round' stroke-linecap='round'/>"
-        f"{dots}"
-        f"<text x='{width - pad_right}' y='{pad_top - 4}' text-anchor='end' "
-        f"font-size='10' fill='#bbb'>{unit}, ostatnie 7 dni</text>"
-        f"</svg></div>"
-    )
+    fig.tight_layout(pad=0.5)
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", bbox_inches="tight", facecolor=fig.get_facecolor())
+    plt.close(fig)
+    buf.seek(0)
+    return buf.read()
 
 
 def _read_history_sheets(excel_path: Path) -> dict[str, pd.DataFrame]:
@@ -150,40 +134,50 @@ def _last_7_days(df: pd.DataFrame, date_col: str, value_col: str) -> tuple[list[
     return dates, values
 
 
-def _build_section_charts(section: str, history_sheets: dict[str, pd.DataFrame]) -> str:
-    """Build SVG chart HTML for a given section using historical data."""
+def _build_section_charts(
+    section: str,
+    history_sheets: dict[str, pd.DataFrame],
+    chart_images: list[tuple[str, bytes]],
+) -> str:
+    """Build chart HTML for a section; appends (cid, png_bytes) to chart_images."""
     color = _SECTION_COLORS.get(section, "#333")
+    html = ""
+
+    def _add_chart(dates: list[str], values: list[float], label: str) -> str:
+        png = _render_chart_png(dates, values, color, label)
+        if png is None:
+            return ""
+        cid = f"chart_{section.replace(' ', '_')}_{len(chart_images)}"
+        chart_images.append((cid, png))
+        return (
+            f"<div style='margin:4px 16px 12px 16px;text-align:center;'>"
+            f"<img src='cid:{cid}' alt='{section} chart' "
+            f"style='max-width:100%;border-radius:6px;'/></div>"
+        )
 
     if section == "CO2":
         df = history_sheets.get("CO2", pd.DataFrame())
         dates, values = _last_7_days(df, "Data", "Cena_CO2")
-        return _build_svg_chart(dates, values, color, "EUR")
+        html += _add_chart(dates, values, "EUR")
 
-    if section == "Energia BASE":
+    elif section == "Energia BASE":
         df = history_sheets.get("Energia_BASE", pd.DataFrame())
-        charts = ""
         for year in (2027, 2028):
             col = f"Cena_BASE_{year}_PLN_MWh"
             dates, values = _last_7_days(df, "Data_Raportu", col)
-            if values:
-                charts += (
-                    f"<div style='margin:0 16px;font-size:11px;color:#888;'>"
-                    f"BASE {year}</div>"
-                )
-                charts += _build_svg_chart(dates, values, color, "PLN/MWh")
-        return charts
+            html += _add_chart(dates, values, f"BASE {year} PLN/MWh")
 
-    if section == "Spot energia":
+    elif section == "Spot energia":
         df = history_sheets.get("Spot_energia_srednia", pd.DataFrame())
         dates, values = _last_7_days(df, "Data_Dostawy", "Cena_Srednia_Dzien_PLN_MWh")
-        return _build_svg_chart(dates, values, color, "PLN/MWh")
+        html += _add_chart(dates, values, "PLN/MWh")
 
-    if section == "Gaz":
+    elif section == "Gaz":
         df = history_sheets.get("Gaz", pd.DataFrame())
         dates, values = _last_7_days(df, "Data_Raportu", "Cena_Biezaca_PLN_MWh")
-        return _build_svg_chart(dates, values, color, "PLN/MWh")
+        html += _add_chart(dates, values, "PLN/MWh")
 
-    return ""
+    return html
 
 
 def _build_section_card(section: str, rows: pd.DataFrame) -> str:
@@ -230,18 +224,24 @@ def _build_html_body(
     report_df: pd.DataFrame,
     fetch_time: datetime,
     history_sheets: dict[str, pd.DataFrame] | None = None,
+    chart_images: list[tuple[str, bytes]] | None = None,
 ) -> str:
     date_str = fetch_time.strftime("%d.%m.%Y %H:%M")
     if history_sheets is None:
         history_sheets = {}
+    if chart_images is None:
+        chart_images = []
 
     cards_html = ""
     if not report_df.empty:
         for section in _SECTION_ORDER:
             section_rows = report_df[report_df["Sekcja"] == section]
+            allowed = _EMAIL_METRICS.get(section)
+            if allowed is not None:
+                section_rows = section_rows[section_rows["Metryka"].isin(allowed)]
             if not section_rows.empty:
                 cards_html += _build_section_card(section, section_rows)
-                cards_html += _build_section_charts(section, history_sheets)
+                cards_html += _build_section_charts(section, history_sheets, chart_images)
     else:
         cards_html = "<p style='color:#888;'>Brak danych w raporcie.</p>"
 
@@ -367,8 +367,17 @@ def send_report(
     msg["From"] = sender
     msg["To"] = ", ".join(recipients)
 
-    html_body = _build_html_body(report_df, fetch_time, history_sheets)
-    msg.attach(MIMEText(html_body, "html", "utf-8"))
+    chart_images: list[tuple[str, bytes]] = []
+    html_body = _build_html_body(report_df, fetch_time, history_sheets, chart_images)
+
+    html_related = MIMEMultipart("related")
+    html_related.attach(MIMEText(html_body, "html", "utf-8"))
+    for cid, png_data in chart_images:
+        img_part = MIMEImage(png_data, _subtype="png")
+        img_part.add_header("Content-ID", f"<{cid}>")
+        img_part.add_header("Content-Disposition", "inline")
+        html_related.attach(img_part)
+    msg.attach(html_related)
 
     if attach_excel and excel_path.exists():
         try:

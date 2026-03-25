@@ -58,10 +58,6 @@ ENERGY_BASE_COLUMNS = [
     "Data_Raportu",
     "Data_Pobrania",
     "Zrodlo_URL",
-    "Kontrakt_2026",
-    "Cena_BASE_2026_PLN_MWh",
-    "Data_Notowania_2026",
-    "Status_2026",
     "Kontrakt_2027",
     "Cena_BASE_2027_PLN_MWh",
     "Data_Notowania_2027",
@@ -70,8 +66,6 @@ ENERGY_BASE_COLUMNS = [
     "Cena_BASE_2028_PLN_MWh",
     "Data_Notowania_2028",
     "Status_2028",
-    "Kolumna_Ceny_2026",
-    "URL_Notowania_2026",
     "Kolumna_Ceny_2027",
     "URL_Notowania_2027",
     "Kolumna_Ceny_2028",
@@ -419,15 +413,33 @@ def _build_range_rows(
             )
             continue
 
-        rows.append(
-            {
-                "Sekcja": section,
-                "Metryka": f"Srednia {window}D",
-                "Wartosc": values.mean(),
-                "Jednostka": unit,
-                "Data": latest.get(date_column, ""),
-                "Uwagi": f"Liczba obserwacji: {len(values)}",
-            },
+        rows.extend(
+            [
+                {
+                    "Sekcja": section,
+                    "Metryka": f"Minimum {window}D",
+                    "Wartosc": values.min(),
+                    "Jednostka": unit,
+                    "Data": latest.get(date_column, ""),
+                    "Uwagi": note,
+                },
+                {
+                    "Sekcja": section,
+                    "Metryka": f"Maksimum {window}D",
+                    "Wartosc": values.max(),
+                    "Jednostka": unit,
+                    "Data": latest.get(date_column, ""),
+                    "Uwagi": note,
+                },
+                {
+                    "Sekcja": section,
+                    "Metryka": f"Srednia {window}D",
+                    "Wartosc": values.mean(),
+                    "Jednostka": unit,
+                    "Data": latest.get(date_column, ""),
+                    "Uwagi": f"Liczba obserwacji: {len(values)}",
+                },
+            ]
         )
 
     return rows
@@ -456,6 +468,22 @@ def _build_spot_rows(power_spot_history: pd.DataFrame) -> list[dict[str, object]
             "Jednostka": "PLN/MWh",
             "Data": latest_day.get("Data_Dostawy", ""),
             "Uwagi": f"{int(latest_day.get('Liczba_Godzin', 0))} godzin w arkuszu {SHEETS['power_spot']}",
+        },
+        {
+            "Sekcja": "Spot energia",
+            "Metryka": "Minimum dnia",
+            "Wartosc": latest_day.get("Cena_Min_Dzien_PLN_MWh"),
+            "Jednostka": "PLN/MWh",
+            "Data": latest_day.get("Data_Dostawy", ""),
+            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot']}",
+        },
+        {
+            "Sekcja": "Spot energia",
+            "Metryka": "Maksimum dnia",
+            "Wartosc": latest_day.get("Cena_Max_Dzien_PLN_MWh"),
+            "Jednostka": "PLN/MWh",
+            "Data": latest_day.get("Data_Dostawy", ""),
+            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot']}",
         },
     ]
     rows.extend(
@@ -544,7 +572,10 @@ def append_to_excel(scraped: dict[str, pd.DataFrame], config: dict) -> Path:
 
     def _get_existing(key: str) -> pd.DataFrame | None:
         """Read from new sheet name, fall back to old sheet name."""
-        return existing.get(SHEETS[key]) or existing.get(_OLD_SHEET_NAMES.get(key, ""))
+        result = existing.get(SHEETS[key])
+        if result is None or (isinstance(result, pd.DataFrame) and result.empty):
+            result = existing.get(_OLD_SHEET_NAMES.get(key, ""))
+        return result
 
     co2_history = _merge_history(
         _get_existing("co2"),

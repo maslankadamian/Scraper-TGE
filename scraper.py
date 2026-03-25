@@ -215,7 +215,7 @@ def _build_energy_base_record(
         return None
 
     found: dict[int, dict[str, object]] = {}
-    for year in (2026, 2027, 2028):
+    for year in (2027, 2028):
         token = f"base_y-{str(year)[-2:]}"
         row = None
         for _, candidate in table.iterrows():
@@ -247,7 +247,7 @@ def _build_energy_base_record(
         "Zrodlo_URL": source_url,
     }
 
-    for year in (2026, 2027, 2028):
+    for year in (2027, 2028):
         current = found.get(year)
         record[f"Kontrakt_{year}"] = current.get("contract") if current else ""
         record[f"Cena_BASE_{year}_PLN_MWh"] = current.get("price") if current else None
@@ -292,7 +292,7 @@ def _build_energy_base_snapshot(
     snapshot["Data_Pobrania"] = fetch_time.strftime("%Y-%m-%d %H:%M:%S")
     snapshot["Zrodlo_URL"] = source_url
 
-    for year in (2026, 2027, 2028):
+    for year in (2027, 2028):
         has_price = snapshot.get(f"Cena_BASE_{year}_PLN_MWh") is not None
         if has_price:
             snapshot[f"URL_Notowania_{year}"] = latest_session_url
