@@ -7,7 +7,7 @@ from __future__ import annotations
 import logging
 import smtplib
 import ssl
-from datetime import datetime
+from datetime import datetime, timedelta
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -45,6 +45,145 @@ def _fmt(value: object) -> str:
     if isinstance(value, int):
         return str(value)
     return str(value)
+
+
+def _build_svg_chart(dates: list[str], values: list[float], color: str, unit: str) -> str:
+    """Build an inline SVG line chart for the last 7 days."""
+    if len(values) < 2:
+        return ""
+
+    width, height = 560, 140
+    pad_left, pad_right, pad_top, pad_bottom = 60, 20, 20, 35
+
+    chart_w = width - pad_left - pad_right
+    chart_h = height - pad_top - pad_bottom
+
+    v_min = min(values)
+    v_max = max(values)
+    v_range = v_max - v_min if v_max != v_min else 1.0
+
+    n = len(values)
+    points = []
+    for i, v in enumerate(values):
+        x = pad_left + (i / (n - 1)) * chart_w
+        y = pad_top + chart_h - ((v - v_min) / v_range) * chart_h
+        points.append((x, y))
+
+    polyline = " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
+
+    # Y-axis labels (3 ticks)
+    y_labels = ""
+    for frac in (0.0, 0.5, 1.0):
+        val = v_min + frac * v_range
+        y_pos = pad_top + chart_h - frac * chart_h
+        y_labels += (
+            f"<text x='{pad_left - 6}' y='{y_pos + 4}' text-anchor='end' "
+            f"font-size='10' fill='#999'>{val:.2f}</text>"
+            f"<line x1='{pad_left}' y1='{y_pos}' x2='{width - pad_right}' y2='{y_pos}' "
+            f"stroke='#eee' stroke-width='1'/>"
+        )
+
+    # X-axis date labels
+    x_labels = ""
+    step = max(1, (n - 1) // min(6, n - 1))
+    for i in range(0, n, step):
+        x_pos = pad_left + (i / (n - 1)) * chart_w
+        label = dates[i][-5:] if len(dates[i]) > 5 else dates[i]
+        x_labels += (
+            f"<text x='{x_pos}' y='{height - 5}' text-anchor='middle' "
+            f"font-size='10' fill='#999'>{label}</text>"
+        )
+
+    # Dots on data points
+    dots = ""
+    for x, y in points:
+        dots += f"<circle cx='{x:.1f}' cy='{y:.1f}' r='3' fill='{color}'/>"
+
+    return (
+        f"<div style='margin:8px 16px 14px 16px;'>"
+        f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {width} {height}' "
+        f"width='{width}' height='{height}' style='max-width:100%;background:#fafafa;"
+        f"border-radius:6px;'>"
+        f"{y_labels}{x_labels}"
+        f"<polyline points='{polyline}' fill='none' stroke='{color}' stroke-width='2.5' "
+        f"stroke-linejoin='round' stroke-linecap='round'/>"
+        f"{dots}"
+        f"<text x='{width - pad_right}' y='{pad_top - 4}' text-anchor='end' "
+        f"font-size='10' fill='#bbb'>{unit}, ostatnie 7 dni</text>"
+        f"</svg></div>"
+    )
+
+
+def _read_history_sheets(excel_path: Path) -> dict[str, pd.DataFrame]:
+    """Read historical data sheets for chart generation."""
+    sheets: dict[str, pd.DataFrame] = {}
+    try:
+        xf = pd.ExcelFile(str(excel_path), engine="openpyxl")
+        for name in ("CO2", "Spot_energia_srednia", "Gaz", "Energia_BASE"):
+            if name in xf.sheet_names:
+                sheets[name] = xf.parse(name)
+        xf.close()
+    except Exception as exc:
+        logger.warning("Could not read history sheets: %s", exc)
+    return sheets
+
+
+def _last_7_days(df: pd.DataFrame, date_col: str, value_col: str) -> tuple[list[str], list[float]]:
+    """Extract last 7 days of (date, value) pairs sorted ascending."""
+    if df.empty or date_col not in df.columns or value_col not in df.columns:
+        return [], []
+
+    subset = df.copy()
+    subset["__date"] = pd.to_datetime(subset[date_col], errors="coerce")
+    subset["__val"] = pd.to_numeric(subset[value_col], errors="coerce")
+    subset = subset.dropna(subset=["__date", "__val"])
+    if subset.empty:
+        return [], []
+
+    latest = subset["__date"].max().normalize()
+    cutoff = latest - timedelta(days=6)
+    subset = subset[subset["__date"] >= cutoff].sort_values("__date")
+    subset = subset.drop_duplicates(subset=["__date"], keep="last")
+
+    dates = [d.strftime("%m-%d") for d in subset["__date"]]
+    values = subset["__val"].tolist()
+    return dates, values
+
+
+def _build_section_charts(section: str, history_sheets: dict[str, pd.DataFrame]) -> str:
+    """Build SVG chart HTML for a given section using historical data."""
+    color = _SECTION_COLORS.get(section, "#333")
+
+    if section == "CO2":
+        df = history_sheets.get("CO2", pd.DataFrame())
+        dates, values = _last_7_days(df, "Data", "Cena_CO2")
+        return _build_svg_chart(dates, values, color, "EUR")
+
+    if section == "Energia BASE":
+        df = history_sheets.get("Energia_BASE", pd.DataFrame())
+        charts = ""
+        for year in (2027, 2028):
+            col = f"Cena_BASE_{year}_PLN_MWh"
+            dates, values = _last_7_days(df, "Data_Raportu", col)
+            if values:
+                charts += (
+                    f"<div style='margin:0 16px;font-size:11px;color:#888;'>"
+                    f"BASE {year}</div>"
+                )
+                charts += _build_svg_chart(dates, values, color, "PLN/MWh")
+        return charts
+
+    if section == "Spot energia":
+        df = history_sheets.get("Spot_energia_srednia", pd.DataFrame())
+        dates, values = _last_7_days(df, "Data_Dostawy", "Cena_Srednia_Dzien_PLN_MWh")
+        return _build_svg_chart(dates, values, color, "PLN/MWh")
+
+    if section == "Gaz":
+        df = history_sheets.get("Gaz", pd.DataFrame())
+        dates, values = _last_7_days(df, "Data_Raportu", "Cena_Biezaca_PLN_MWh")
+        return _build_svg_chart(dates, values, color, "PLN/MWh")
+
+    return ""
 
 
 def _build_section_card(section: str, rows: pd.DataFrame) -> str:
@@ -87,8 +226,14 @@ def _build_section_card(section: str, rows: pd.DataFrame) -> str:
     )
 
 
-def _build_html_body(report_df: pd.DataFrame, fetch_time: datetime) -> str:
+def _build_html_body(
+    report_df: pd.DataFrame,
+    fetch_time: datetime,
+    history_sheets: dict[str, pd.DataFrame] | None = None,
+) -> str:
     date_str = fetch_time.strftime("%d.%m.%Y %H:%M")
+    if history_sheets is None:
+        history_sheets = {}
 
     cards_html = ""
     if not report_df.empty:
@@ -96,6 +241,7 @@ def _build_html_body(report_df: pd.DataFrame, fetch_time: datetime) -> str:
             section_rows = report_df[report_df["Sekcja"] == section]
             if not section_rows.empty:
                 cards_html += _build_section_card(section, section_rows)
+                cards_html += _build_section_charts(section, history_sheets)
     else:
         cards_html = "<p style='color:#888;'>Brak danych w raporcie.</p>"
 
@@ -214,13 +360,14 @@ def send_report(
         logger.warning("Pomijam placeholdery odbiorcow: %s", ", ".join(skipped_recipients))
 
     report_df = _read_report_df(excel_path)
+    history_sheets = _read_history_sheets(excel_path)
 
     msg = MIMEMultipart("mixed")
     msg["Subject"] = f"{subject} - {fetch_time.strftime('%d.%m.%Y')}"
     msg["From"] = sender
     msg["To"] = ", ".join(recipients)
 
-    html_body = _build_html_body(report_df, fetch_time)
+    html_body = _build_html_body(report_df, fetch_time, history_sheets)
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
     if attach_excel and excel_path.exists():

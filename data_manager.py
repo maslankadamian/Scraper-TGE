@@ -419,33 +419,15 @@ def _build_range_rows(
             )
             continue
 
-        rows.extend(
-            [
-                {
-                    "Sekcja": section,
-                    "Metryka": f"Minimum {window}D",
-                    "Wartosc": values.min(),
-                    "Jednostka": unit,
-                    "Data": latest.get(date_column, ""),
-                    "Uwagi": note,
-                },
-                {
-                    "Sekcja": section,
-                    "Metryka": f"Maksimum {window}D",
-                    "Wartosc": values.max(),
-                    "Jednostka": unit,
-                    "Data": latest.get(date_column, ""),
-                    "Uwagi": note,
-                },
-                {
-                    "Sekcja": section,
-                    "Metryka": f"Srednia {window}D",
-                    "Wartosc": values.mean(),
-                    "Jednostka": unit,
-                    "Data": latest.get(date_column, ""),
-                    "Uwagi": f"Liczba obserwacji: {len(values)}",
-                },
-            ]
+        rows.append(
+            {
+                "Sekcja": section,
+                "Metryka": f"Srednia {window}D",
+                "Wartosc": values.mean(),
+                "Jednostka": unit,
+                "Data": latest.get(date_column, ""),
+                "Uwagi": f"Liczba obserwacji: {len(values)}",
+            },
         )
 
     return rows
@@ -474,22 +456,6 @@ def _build_spot_rows(power_spot_history: pd.DataFrame) -> list[dict[str, object]
             "Jednostka": "PLN/MWh",
             "Data": latest_day.get("Data_Dostawy", ""),
             "Uwagi": f"{int(latest_day.get('Liczba_Godzin', 0))} godzin w arkuszu {SHEETS['power_spot']}",
-        },
-        {
-            "Sekcja": "Spot energia",
-            "Metryka": "Minimum dnia",
-            "Wartosc": latest_day.get("Cena_Min_Dzien_PLN_MWh"),
-            "Jednostka": "PLN/MWh",
-            "Data": latest_day.get("Data_Dostawy", ""),
-            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot']}",
-        },
-        {
-            "Sekcja": "Spot energia",
-            "Metryka": "Maksimum dnia",
-            "Wartosc": latest_day.get("Cena_Max_Dzien_PLN_MWh"),
-            "Jednostka": "PLN/MWh",
-            "Data": latest_day.get("Data_Dostawy", ""),
-            "Uwagi": f"Szczegoly godzinowe w arkuszu {SHEETS['power_spot']}",
         },
     ]
     rows.extend(
@@ -541,7 +507,7 @@ def _build_report_sheet(
             }
         )
     else:
-        for year in (2026, 2027, 2028):
+        for year in (2027, 2028):
             rows.append(
                 {
                     "Sekcja": "Energia BASE",
@@ -568,6 +534,7 @@ def _build_report_sheet(
     )
 
     report = pd.DataFrame(rows)
+    report["Wartosc"] = pd.to_numeric(report["Wartosc"], errors="coerce").round(2).combine_first(report["Wartosc"])
     return report[["Sekcja", "Metryka", "Wartosc", "Jednostka", "Data", "Uwagi"]]
 
 
