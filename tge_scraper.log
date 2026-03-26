@@ -3227,3 +3227,199 @@ Gaz: 42 rekordow
 2026-03-25 13:44:05 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
 2026-03-25 13:44:06 [INFO] email_sender: E-mail wyslany pomyslnie do 1 odbiorcow.
 2026-03-25 13:44:06 [INFO] werkzeug: 127.0.0.1 - - [25/Mar/2026 13:44:06] "POST /api/send-email HTTP/1.1" 200 -
+2026-03-26 14:00:16 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-26 14:00:16 [INFO] __main__: Rozpoczynam scrapowanie danych...
+2026-03-26 14:00:16 [INFO] main: ============================================================
+2026-03-26 14:00:16 [INFO] main: Start cyklu: 2026-03-26 14:00:16
+2026-03-26 14:00:16 [INFO] main: ============================================================
+2026-03-26 14:00:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-03-2026 (348623 bytes)
+2026-03-26 14:00:20 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (348423 bytes)
+2026-03-26 14:00:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (348583 bytes)
+2026-03-26 14:00:23 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (348269 bytes)
+2026-03-26 14:00:25 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50682 bytes)
+2026-03-26 14:00:26 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50682 bytes)
+2026-03-26 14:00:28 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (348333 bytes)
+2026-03-26 14:00:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (348669 bytes)
+2026-03-26 14:00:31 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (348475 bytes)
+2026-03-26 14:00:33 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (348375 bytes)
+2026-03-26 14:00:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (348441 bytes)
+2026-03-26 14:00:36 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50682 bytes)
+2026-03-26 14:00:38 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50682 bytes)
+2026-03-26 14:00:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (348361 bytes)
+2026-03-26 14:00:42 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (348363 bytes)
+2026-03-26 14:00:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (348453 bytes)
+2026-03-26 14:00:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (348295 bytes)
+2026-03-26 14:00:46 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (348415 bytes)
+2026-03-26 14:00:48 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50682 bytes)
+2026-03-26 14:00:49 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50682 bytes)
+2026-03-26 14:00:50 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (348175 bytes)
+2026-03-26 14:00:52 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (348457 bytes)
+2026-03-26 14:00:53 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-03-2026 (348397 bytes)
+2026-03-26 14:00:55 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-03-2026 (348487 bytes)
+2026-03-26 14:00:57 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-03-2026 (348431 bytes)
+2026-03-26 14:00:58 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-03-2026 (50682 bytes)
+2026-03-26 14:01:00 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-03-2026 (50682 bytes)
+2026-03-26 14:01:01 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-03-2026 (348389 bytes)
+2026-03-26 14:01:03 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-03-2026 (348497 bytes)
+2026-03-26 14:01:04 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-03-2026 (348249 bytes)
+2026-03-26 14:01:12 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-26 14:01:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-26 14:01:15 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-26 14:01:17 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-26 14:01:18 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-26 14:01:20 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-26 14:01:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-26 14:01:23 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-26 14:01:25 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-26 14:01:26 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-26 14:01:28 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-26 14:01:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-26 14:01:31 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-26 14:01:33 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-26 14:01:35 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-26 14:01:36 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-26 14:01:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-26 14:01:40 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-26 14:01:42 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-26 14:01:43 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-26 14:01:45 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-26 14:01:47 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-26 14:01:48 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-03-2026 (70558 bytes)
+2026-03-26 14:01:50 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-03-2026 (71228 bytes)
+2026-03-26 14:01:51 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-03-2026 (71229 bytes)
+2026-03-26 14:01:53 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-03-2026 (70558 bytes)
+2026-03-26 14:01:54 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-03-2026 (70558 bytes)
+2026-03-26 14:01:56 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-03-2026 (70558 bytes)
+2026-03-26 14:01:58 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-03-2026 (70557 bytes)
+2026-03-26 14:01:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-03-2026 (70558 bytes)
+2026-03-26 14:02:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-03-2026 (70558 bytes)
+2026-03-26 14:02:03 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (904890 bytes)
+2026-03-26 14:02:03 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-26 14:02:04 [INFO] data_manager: Saved workbook with 6 sheets to tge_dane_historyczne.xlsx
+2026-03-26 14:02:04 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2, Energia_BASE, Spot_energia, Spot_energia_srednia, Gaz
+Zakres dat: od 01.02.2026 do dzis
+CO2: 66.38 EUR (2026-03-26)
+Energia BASE: 2027: 440.00, 2028: 425.00
+Spot energia: 478.96 PLN/MWh (2026-03-26, godzin: 1032)
+Gaz: 222.63 PLN/MWh (2026-03-26)
+CO2: 30 rekordow | Energia BASE: 31 rekordow
+Spot (godzinowe): 1032 rekordow | Spot (srednie dzienne): 43 rekordow
+Gaz: 43 rekordow
+2026-03-26 14:02:04 [INFO] main: Cykl zakonczony w 107.5 s.
+2026-03-26 14:02:04 [INFO] __main__: Scrapowanie zakonczone. Plik: tge_dane_historyczne.xlsx
+2026-03-26 14:02:04 [INFO] __main__: Wysylam raport e-mailem...
+2026-03-26 14:02:04 [WARNING] email_sender: Pomijam placeholdery odbiorcow: odbiorca2@example.com
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:04 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:05 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:05 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:02:05 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
+2026-03-26 14:02:07 [INFO] email_sender: E-mail wyslany pomyslnie do 1 odbiorcow.
+2026-03-26 14:02:07 [INFO] __main__: Mail wyslany pomyslnie.
+2026-03-26 14:02:07 [INFO] __main__: Gotowe.
+2026-03-26 14:08:58 [INFO] main: Zaladowano konfiguracje z: config.yaml
+2026-03-26 14:08:58 [INFO] __main__: Rozpoczynam scrapowanie danych...
+2026-03-26 14:08:58 [INFO] main: ============================================================
+2026-03-26 14:08:58 [INFO] main: Start cyklu: 2026-03-26 14:08:58
+2026-03-26 14:08:58 [INFO] main: ============================================================
+2026-03-26 14:09:00 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-03-2026 (348623 bytes)
+2026-03-26 14:09:02 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-02-2026 (348423 bytes)
+2026-03-26 14:09:04 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=26-02-2026 (348583 bytes)
+2026-03-26 14:09:05 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=27-02-2026 (348269 bytes)
+2026-03-26 14:09:07 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=28-02-2026 (50682 bytes)
+2026-03-26 14:09:08 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=01-03-2026 (50682 bytes)
+2026-03-26 14:09:10 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=02-03-2026 (348333 bytes)
+2026-03-26 14:09:12 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=03-03-2026 (348669 bytes)
+2026-03-26 14:09:13 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=04-03-2026 (348475 bytes)
+2026-03-26 14:09:15 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=05-03-2026 (348375 bytes)
+2026-03-26 14:09:16 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=06-03-2026 (348441 bytes)
+2026-03-26 14:09:18 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=07-03-2026 (50682 bytes)
+2026-03-26 14:09:19 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=08-03-2026 (50682 bytes)
+2026-03-26 14:09:21 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=09-03-2026 (348361 bytes)
+2026-03-26 14:09:22 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=10-03-2026 (348363 bytes)
+2026-03-26 14:09:24 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=11-03-2026 (348453 bytes)
+2026-03-26 14:09:26 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=12-03-2026 (348295 bytes)
+2026-03-26 14:09:27 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=13-03-2026 (348415 bytes)
+2026-03-26 14:09:29 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=14-03-2026 (50682 bytes)
+2026-03-26 14:09:30 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=15-03-2026 (50682 bytes)
+2026-03-26 14:09:32 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=16-03-2026 (348175 bytes)
+2026-03-26 14:09:34 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=17-03-2026 (348457 bytes)
+2026-03-26 14:09:35 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=18-03-2026 (348397 bytes)
+2026-03-26 14:09:37 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=19-03-2026 (348487 bytes)
+2026-03-26 14:09:38 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=20-03-2026 (348431 bytes)
+2026-03-26 14:09:40 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=21-03-2026 (50682 bytes)
+2026-03-26 14:09:41 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=22-03-2026 (50682 bytes)
+2026-03-26 14:09:43 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=23-03-2026 (348389 bytes)
+2026-03-26 14:09:45 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=24-03-2026 (348497 bytes)
+2026-03-26 14:09:46 [INFO] scraper: Fetched https://tge.pl/energia-elektryczna-otf?dateShow=25-03-2026 (348249 bytes)
+2026-03-26 14:09:55 [INFO] scraper: Fetched 2880 API rows from https://api.raporty.pse.pl/api/csdac-pln
+2026-03-26 14:09:56 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-02-2026 (70561 bytes)
+2026-03-26 14:09:58 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-02-2026 (71217 bytes)
+2026-03-26 14:09:59 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=27-02-2026 (71230 bytes)
+2026-03-26 14:10:01 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=28-02-2026 (70560 bytes)
+2026-03-26 14:10:03 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=01-03-2026 (70561 bytes)
+2026-03-26 14:10:04 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=02-03-2026 (70558 bytes)
+2026-03-26 14:10:06 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=03-03-2026 (70560 bytes)
+2026-03-26 14:10:08 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=04-03-2026 (70559 bytes)
+2026-03-26 14:10:09 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=05-03-2026 (71228 bytes)
+2026-03-26 14:10:11 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=06-03-2026 (71229 bytes)
+2026-03-26 14:10:12 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=07-03-2026 (70558 bytes)
+2026-03-26 14:10:14 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=08-03-2026 (70557 bytes)
+2026-03-26 14:10:16 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=09-03-2026 (70558 bytes)
+2026-03-26 14:10:18 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=10-03-2026 (70559 bytes)
+2026-03-26 14:10:19 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=11-03-2026 (70558 bytes)
+2026-03-26 14:10:21 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=12-03-2026 (71232 bytes)
+2026-03-26 14:10:22 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=13-03-2026 (71230 bytes)
+2026-03-26 14:10:24 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=14-03-2026 (70558 bytes)
+2026-03-26 14:10:26 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=15-03-2026 (70559 bytes)
+2026-03-26 14:10:27 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=16-03-2026 (70558 bytes)
+2026-03-26 14:10:29 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=17-03-2026 (70558 bytes)
+2026-03-26 14:10:30 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=18-03-2026 (70558 bytes)
+2026-03-26 14:10:32 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=19-03-2026 (71228 bytes)
+2026-03-26 14:10:34 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=20-03-2026 (71229 bytes)
+2026-03-26 14:10:35 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=21-03-2026 (70558 bytes)
+2026-03-26 14:10:37 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=22-03-2026 (70558 bytes)
+2026-03-26 14:10:38 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=23-03-2026 (70558 bytes)
+2026-03-26 14:10:41 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=24-03-2026 (70557 bytes)
+2026-03-26 14:10:43 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=25-03-2026 (70558 bytes)
+2026-03-26 14:10:44 [INFO] scraper: Fetched https://tge.pl/gaz-rdn?dateShow=26-03-2026 (70558 bytes)
+2026-03-26 14:10:45 [INFO] scraper: Fetched https://pl.investing.com/etfs/co2-historical-data?utm_source=chatgpt.com (899575 bytes)
+2026-03-26 14:10:45 [INFO] scraper: Scraping completed for 4 datasets with 4 non-empty results.
+2026-03-26 14:10:46 [INFO] data_manager: Saved workbook with 6 sheets to tge_dane_historyczne.xlsx
+2026-03-26 14:10:46 [INFO] main: Podsumowanie pliku:
+Plik: tge_dane_historyczne.xlsx
+Arkusze: Raport_dzienny, CO2, Energia_BASE, Spot_energia, Spot_energia_srednia, Gaz
+Zakres dat: od 01.02.2026 do dzis
+CO2: 66.38 EUR (2026-03-26)
+Energia BASE: 2027: 440.00, 2028: 425.00
+Spot energia: 478.96 PLN/MWh (2026-03-26, godzin: 1032)
+Gaz: 222.63 PLN/MWh (2026-03-26)
+CO2: 30 rekordow | Energia BASE: 31 rekordow
+Spot (godzinowe): 1032 rekordow | Spot (srednie dzienne): 43 rekordow
+Gaz: 43 rekordow
+2026-03-26 14:10:46 [INFO] main: Cykl zakonczony w 107.7 s.
+2026-03-26 14:10:46 [INFO] __main__: Scrapowanie zakonczone. Plik: tge_dane_historyczne.xlsx
+2026-03-26 14:10:46 [INFO] __main__: Wysylam raport e-mailem...
+2026-03-26 14:10:46 [WARNING] email_sender: Pomijam placeholdery odbiorcow: odbiorca2@example.com
+2026-03-26 14:10:46 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:46 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:46 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:46 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:46 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:46 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:47 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:47 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:47 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:47 [INFO] matplotlib.category: Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-03-26 14:10:47 [INFO] email_sender: Wysylam e-mail przez smtp.office365.com:587 do: damian.maslanka@naster.pl
+2026-03-26 14:10:48 [INFO] email_sender: E-mail wyslany pomyslnie do 1 odbiorcow.
+2026-03-26 14:10:48 [INFO] __main__: Mail wyslany pomyslnie.
+2026-03-26 14:10:48 [INFO] __main__: Gotowe.
