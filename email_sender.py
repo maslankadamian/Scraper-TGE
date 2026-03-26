@@ -75,6 +75,13 @@ def _render_chart_png(
 
     ax.plot(dates, values, color=color, linewidth=2, marker="o", markersize=4, zorder=3)
     ax.fill_between(range(len(values)), values, alpha=0.08, color=color)
+
+    # Auto-scale Y axis to highlight trends instead of starting from 0
+    v_min, v_max = min(values), max(values)
+    v_range = v_max - v_min if v_max != v_min else abs(v_max) * 0.1 or 1.0
+    margin = v_range * 0.15
+    ax.set_ylim(v_min - margin, v_max + margin)
+
     ax.set_ylabel(unit, fontsize=8, color="#888")
     ax.tick_params(axis="both", labelsize=7, colors="#888")
     ax.grid(axis="y", linewidth=0.4, color="#ddd")
